@@ -125,7 +125,7 @@ const create = (params) =>{
     const app = require('http').createServer()
     
     initApp(app, params, () =>{
-      const io = require('socket.io')(app)
+      const io = require('socket.io')(app, { pingTimeout: 60000 } )
       
       const stop = (cb) => {
         io.close()

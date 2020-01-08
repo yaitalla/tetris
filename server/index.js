@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const debug = require('debug');
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { pingTimeout: 60000 } );
 app.use(cors({"origin": "*"})); //cross origin ressource sharing
 app.use(bodyParser.urlencoded({ extended: false })); //parse request bodies in a midlleware
 app.use(bodyParser.json());

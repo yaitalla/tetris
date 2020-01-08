@@ -1,6 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { GameScreen } from './style';
+import { GameScreen, UserLine } from './style';
+
+const Users = ({data}) => {
+    console.log(data)
+    return (
+        <UserLine>
+            {
+                data.map((usr, i) => {
+                    <h4 key={i} > {usr} </h4>
+                })   
+            }
+         </UserLine>
+    )
+}
 
 const Game = ({actualRoom, message, score, falling, users}) => {
     return (
@@ -8,7 +21,7 @@ const Game = ({actualRoom, message, score, falling, users}) => {
             <p>actualRoom: {actualRoom}</p>
             <p>score: {score}</p>
             <p>message: {message}</p>
-            <p>users: {users}</p>
+             <Users data={users}/>
             <p>falling: {falling ? "true" : "false"}</p>
         </GameScreen>
     )
@@ -20,7 +33,8 @@ const mapStateToProps = (state) => {
         message: state.message,
         score: state.score,
         users: state.users,
-        falling: state.falling
+        falling: state.falling,
+        id: state.yourID
     }
 }
 
