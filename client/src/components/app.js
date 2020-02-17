@@ -6,6 +6,8 @@ import Game from './game';
 // import { SHAPE_REQ } from '../config/constants';
 // import {store} from '../config/store';
 
+import StartPage from './game/startpage/StartPage';
+import { Agent } from 'https';
 
 
 const shapeRequest = (roomIndex, rooms) => {
@@ -23,7 +25,9 @@ const App = ({actualRoom, rooms, index, playing}) => {
   
   return (
       <div  >
-        <Game/>
+        <div>
+          <StartPage />
+        </div>
       </div>
     )
 }

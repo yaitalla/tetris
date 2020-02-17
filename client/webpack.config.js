@@ -12,8 +12,12 @@ module.exports = {
         }
       },
       {
-        test: /\.(ogg|mp3|wav|mpe?g)$/,
+        test: /\.(ogg|mp3|ttf|wav|mpe?g)$/,
         use: 'file-loader'
+      },
+      {
+            test:/\.css$/,
+            use:['style-loader','css-loader']
       },
       {
             test: /\.(png|jp(e*)g|svg)$/,
