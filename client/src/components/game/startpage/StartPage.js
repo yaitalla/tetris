@@ -1,9 +1,17 @@
 import React from 'react';
 
-import {StyledStartPage} from './styles/StyledStartPage';
+import {Wrap, StyledStartPage, StyleButton, Background, Credit, Name} from './styles/StyledStartPage';
 
 const StartPage = ({callback}) => {return(
-    <StyledStartPage> {"RED TETRIS"}</StyledStartPage>
+    <Wrap>
+        <Background/>
+        <StyledStartPage> {"RED TETRIS"}</StyledStartPage>
+        <StyleButton onClick={callback} >Start Game</StyleButton>
+        <Credit>
+            <Name>Yaitalla</Name>
+            <Name>Chray</Name>
+        </Credit>
+    </Wrap>
 )}
 
 export default StartPage;

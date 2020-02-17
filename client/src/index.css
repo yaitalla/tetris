@@ -1,4 +1,9 @@
-
+  body {
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
   @font-face {
     font-family: 'TextSF';
     src:  url('./font/police/space_age.ttf') format('truetype');
