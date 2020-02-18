@@ -1,42 +1,30 @@
-import React, {useState} from 'react'
-// import socket from '../config/socketConnect'
-// import Landing from './landing';
-import { connect } from 'react-redux';
-import Game from './game';
-// import { SHAPE_REQ } from '../config/constants';
-// import {store} from '../config/store';
-
+import React, {useState, useReducer, useCallback, useContext} from 'react'
 import StartPage from './game/startpage/StartPage';
-import { Agent } from 'https';
-import styled from 'styled-components';
-
+import  {reducer, initialState, Context } from '../reducer';
+import SocketProvider from '../sockets';
+// import { Agent } from 'https';
 import Menu from './game/Menu';
-
 // Style
 import {Wrap} from './game/style';
+import { MENU, USER_LIST } from '../config/constants';
+import SocketContext from '../sockets/context';
 
-const App = ({actualRoom, rooms, index, playing}) => {  
-  const [start, setStart] = useState(false)
-  const StartGame = () => {
-    setStart(true)
-  }
+const App = () => {
+  const [store, dispatch] = useReducer(reducer, initialState)
+  const {room, rooms} = useContext(SocketContext)
+  if (room) console.log(room)
   return (
-      <Wrap>
-          {
-            start ? <Menu/>  : <StartPage callback={StartGame}/>
-          }
-          
-      </Wrap>
-    )
+    <Context.Provider value={{store, dispatch}} >
+      <SocketProvider>
+        <Wrap>
+            {
+              store.gameStatus === MENU ? <StartPage callback={dispatch}/>
+                                        :  <Menu callback={dispatch}/> 
+            }
+        </Wrap>
+      </SocketProvider>
+    </Context.Provider>
+  )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    actualRoom: state.actualRoom,
-    rooms: state.rooms,
-    index: state.shapeIndex,
-    playing: state.playing
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

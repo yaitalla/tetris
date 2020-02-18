@@ -26,8 +26,7 @@ io.on('connection', (socket) => {
     const data = {
       name: roomname,
       owner: socket.id,
-      users: [],
-      shapes: shaper([])
+      users: []
     }
     roomlist.push(data)
     io.emit('ROOM_CREATED', roomlist)

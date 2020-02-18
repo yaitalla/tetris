@@ -9,11 +9,11 @@ import styled, {keyframes} from 'styled-components';
 
 const zoom = keyframes`
 from {
-	transform:scale(1.01)
+	transform:scale(1.1)
   }
 
   to {
-	transform:scale(1.50)
+	transform:scale(1.5)
   }
 `;
 
@@ -27,7 +27,7 @@ from {
   }
 `;
 
-export const StyledStartPage = styled.div`
+export const StyledTitle = styled.div`
     font-family: TextSF, Arial;
     margin-top: 200px;
     font-size: 5rem;
@@ -55,34 +55,38 @@ export const StyleButton = styled.button `
 `
 
 export const Wrap = styled.div`
-display: flex;
-flex-direction: column;
-height: 98vh;
-align-items: center;
-justify-content: space-between;
+    display: flex;
+    margin: 0 0 0 85px;
+    flex-direction: column;
+    height: 98vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
 `
 
 export const Background = styled.div`
     background: url(https://img.pngio.com/star-wars-space-backgrounds-wallpaper-cave-star-wars-background-png-1024_576.png);
     position: absolute;
-	width:100vw;
-    height:100vh;
-    background-position:center center;
-	background-size:cover;
-    animation: ${zoom} 80s infinite alternate linear;
+	  width: 100%;
+    height: 100%;
+    background-size: cover;
+    animation: ${zoom} 50s infinite alternate linear;
     z-index: -10;
 `;
 
 export const Credit = styled.div`
-position: absolute;
-left: 90%;
-top: 90%;
-color: white;
-display: flex;
-flex-direction: column;
+    position: absolute;
+    left: 85%;
+    top: 90%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 `;
 
 export const Name = styled.p`
     font-family: 'TextSF', Arial;
-    font-size: 1.5rem;
+    font-size: 20px;
 `;

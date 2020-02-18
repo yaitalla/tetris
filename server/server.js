@@ -61,7 +61,6 @@ const initEngine = io => {
         name: roomname,
         owner: socket.id,
         users: [],
-        shapes: shaper([])
       }
       roomlist.push(data)
       io.emit('ROOM_CREATED', roomlist)
@@ -87,13 +86,14 @@ const initEngine = io => {
     socket.on('ENTER_ROOM', data => {
       let ret;
       for (let i in roomlist) {
-        if (roomlist[i].name == data.name) {
+        if (roomlist[i].name == data) {
+          console.log(data)
           ret = i
           roomlist[i].users.push(socket.id)
          }
        }
       socket.join(data.name)
-      socket.emit('ACTUAL_ROOM', {room: ret, field: grid()})
+      socket.emit('ACTUAL_ROOM', {room: ret, shapes: []})
       io.emit('ROOM_UPDATE', roomlist)
     })
     socket.on('disconnect', () => {
