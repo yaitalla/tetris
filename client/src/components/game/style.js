@@ -1,13 +1,7 @@
 import styled from 'styled-components';
 
-export const GameScreen = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-export const UserLine = styled.div`
-    display: flex;
-    flex-direction: column;
-    border: 1px solid pink;
-    min-height: 200px;
+export const Wrap = styled.div`
+height: 100%;
+width: 100%;
+position: relative;
 `;

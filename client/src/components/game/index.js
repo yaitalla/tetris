@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { GameScreen, UserLine } from './style';
 
 const Users = ({data}) => {
     console.log(data)

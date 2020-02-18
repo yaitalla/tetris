@@ -10,28 +10,12 @@ import StartPage from './game/startpage/StartPage';
 import { Agent } from 'https';
 import styled from 'styled-components';
 
-const shapeRequest = (roomIndex, rooms) => {
-  socket.emit(SHAPE_REQ, {i: roomIndex,
-                          oldShapes: rooms[roomIndex].shapes})
-}
-const Wrap = styled.div`
-height: 100%;
-width: 100%;
-position: relative;
-`;
-const Test = styled.div`
-height: 100vh;
-width: 100vw;
-background-color: pink;
-`;
-const App = ({actualRoom, rooms, index, playing}) => {
-  if (actualRoom != -1) {
-    if(index > (rooms[actualRoom].shapes.length-5)) {
-      // shapeRequest(actualRoom, rooms)
-      console.log('shape requested')
-    }
-  }
-  
+import Menu from './game/Menu';
+
+// Style
+import {Wrap} from './game/style';
+
+const App = ({actualRoom, rooms, index, playing}) => {  
   const [start, setStart] = useState(false)
   const StartGame = () => {
     setStart(true)
@@ -39,7 +23,7 @@ const App = ({actualRoom, rooms, index, playing}) => {
   return (
       <Wrap>
           {
-            start ? <Test/>  : <StartPage callback={StartGame}/>
+            start ? <Menu/>  : <StartPage callback={StartGame}/>
           }
           
       </Wrap>
