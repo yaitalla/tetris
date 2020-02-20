@@ -15,7 +15,7 @@ const nextShape = (room, index, grid) => {
     shapeIndex: index+1
   }
 }
-let userlist = [];
+let users = [];
 let roomlist = [];
 
 const logerror = debug('tetris:error')
@@ -48,10 +48,10 @@ const initEngine = io => {
   io.on('connection', (socket) => {
     loginfo("User connected: " + socket.id)
     // io.emit('SERVER_MESSAGE', 'new connection: '+socket.id)
-    if (userlist.indexOf(socket.id) == -1){
-        userlist.push(socket.id)
+    if (users.indexOf(socket.id) == -1){
+        users.push(socket.id)
     }
-    io.emit('USERS_UPDATE', {userlist, roomlist})
+    io.emit('USERS_UPDATE', users)
     socket.on('SHAPE_REQ', data => {
       roomlist[data.i].shapes = shaper(data.oldShapes);
       io.emit('ROOM_UPDATE', roomlist)
@@ -81,19 +81,18 @@ const initEngine = io => {
     socket.on('LEAVE', i => {
       roomlist[i].users.splice(roomlist[i].users.indexOf(socket.id), 1);
       socket.emit('LEAVE');
-      io.emit('ROOM_UPDATE', roomlist)
+      // io.emit('ROOM_UPDATE', roomlist)
     })
     socket.on('ENTER_ROOM', data => {
       let ret;
       for (let i in roomlist) {
-        if (roomlist[i].name == data) {
-          console.log(data)
-          ret = i
-          roomlist[i].users.push(socket.id)
-         }
+          if (roomlist[i].name == data) {
+              ret = i
+              roomlist[i].users.push(socket.id)
+          }
        }
-      socket.join(data.name)
-      socket.emit('ACTUAL_ROOM', {room: ret, shapes: []})
+      socket.join(data)
+      socket.emit('ACTUAL_ROOM', ret)
       io.emit('ROOM_UPDATE', roomlist)
     })
     socket.on('disconnect', () => {
@@ -111,9 +110,9 @@ const initEngine = io => {
           }
         }
        }
-       userlist.splice(userlist.indexOf(socket.id), 1)
-       io.emit('ROOM_UPDATE', roomlist)
-       io.emit('USERS_UPDATE', {userlist, roomlist})
+       users.splice(users.indexOf(socket.id), 1)
+      //  io.emit('ROOM_UPDATE', roomlist)
+       io.emit('USERS_UPDATE', users)
       loginfo("User disconnected: " + socket.id)
     })
   })

@@ -3,16 +3,17 @@ import StartPage from './game/startpage/StartPage';
 import  {reducer, initialState, Context } from '../reducer';
 import SocketProvider from '../sockets';
 // import { Agent } from 'https';
-import Menu from './game/Menu';
+import Pregame from './game/Menu/preGame';
 // Style
 import {Wrap} from './game/style';
 import { MENU, USER_LIST } from '../config/constants';
 import SocketContext from '../sockets/context';
+import Menu from './game/Menu';
 
 const App = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const {room, rooms} = useContext(SocketContext)
-  if (room) console.log(room)
+  // if (room) console.log(room)
   return (
     <Context.Provider value={{store, dispatch}} >
       <SocketProvider>

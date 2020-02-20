@@ -9,9 +9,7 @@ export const createRoom = (name) => {
 export const roomUpdate = () => {
   socket.emit(ROOM_UPDATE);
 };
-export const enterRoom = (name) => {
-    socket.emit(ENTER_ROOM, name)
+export const enterRoom = (i) => {
+    socket.emit(ENTER_ROOM, i)
+    // dispatch({type: ACTUAL_ROOM, room: name})
 }
-export const removeUserFromQueue = () => {
-  socket.emit('removeUserFromQueue');
-};

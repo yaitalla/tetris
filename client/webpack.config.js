@@ -12,7 +12,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(ogg|mp3|ttf|wav|mpe?g)$/,
+        test: /\.(ogg|mp3|woff|ttf|wav|mpe?g)$/,
         use: 'file-loader'
       },
       {

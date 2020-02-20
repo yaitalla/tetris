@@ -46,11 +46,15 @@ export const Enter = styled.button`
     color: red;
     font-size: 1rem;
     height: 44px;
-    width: 100px;
     background: transparent;
     cursor: pointer;
     border: 1px solid silver;
     border-radius: 10px;
+    &:hover{
+        color: black;
+        background-color: white;
+        animation: ${grossir} .5s infinite alternate linear;
+    }
 `;
 export const MiddleWrap = styled.div`
     display: flex;

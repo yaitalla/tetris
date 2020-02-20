@@ -24,7 +24,7 @@ export const reducer =  (state, action) => {
         case USERS_UPDATE:
             return {
                 ...state,
-                users: action.users
+                users: action.userlist
             }
         case USER_ID:
             return {
@@ -39,7 +39,7 @@ export const reducer =  (state, action) => {
         case ROOM_UPDATE:
             return {
                 ...state,
-                rooms: action.rooms,
+                rooms: action.roomlist,
             }
         default:
             return state;

@@ -26,26 +26,31 @@ export const socket = io(SOCKET_API_URL);
 //     socketEvents( setValue );
 // };
 
-export const check = (setValue) => {
+export const check = (setValue, dispatch) => {
+    socket.on(USER_ID, (id) => {
+        //   console.log("userID  update", id)
+         dispatch({type: USER_ID, userID: id})
+    });
     socket.on(USERS_UPDATE, (users) => {
-        //   console.log("user  update")
-        setValue((state) => {
-            return {...state, users}
-        })
+        //   console.log("users update", users)
+          dispatch({type: USERS_UPDATE, userlist: users})
+        // setValue((state) => {
+        //     return {...state, users}
+        // })
     });
     socket.on(ROOM_CREATED, (rooms) => {
-        //  console.log("rooms update")
-        setValue((state) => {
-            return {...state, rooms}
-        })
+        //  console.log("rooms update", rooms)
+         dispatch({type: ROOM_UPDATE, roomlist: rooms})
     });
-    socket.on(ACTUAL_ROOM, (room) => {
-        // console.log("entering room", room)
-       setValue((state) => {
-           return {...state, room}
-       })
+    socket.on(ACTUAL_ROOM, (actualRoom) => {
+         console.log("entering room", actualRoom)
+         dispatch({type: ACTUAL_ROOM, room: actualRoom})
+    });
+    socket.on(ROOM_UPDATE, (rooms) => {
+        console.log("update rooms", rooms)
+        dispatch({type: ROOM_UPDATE, roomlist: rooms})
    });
 }
-export const initSockets = ( {setValue} ) => {
-    check( setValue );
+export const initSockets = ( {setValue, dispatch} ) => {
+    check( setValue, dispatch );
 };
