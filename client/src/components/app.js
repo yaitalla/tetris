@@ -6,7 +6,7 @@ import SocketProvider from '../sockets';
 import Pregame from './game/Menu/preGame';
 // Style
 import {Wrap} from './game/style';
-import { MENU, USER_LIST } from '../config/constants';
+import { MENU, USER_LIST, USER_STATUS } from '../config/constants';
 import SocketContext from '../sockets/context';
 import Menu from './game/Menu';
 
@@ -19,7 +19,7 @@ const App = () => {
       <SocketProvider>
         <Wrap>
             {
-              store.gameStatus === MENU ? <StartPage callback={dispatch}/>
+              store.gameStatus === USER_LIST ? <StartPage callback={dispatch}/>
                                         :  <Menu callback={dispatch}/> 
             }
         </Wrap>

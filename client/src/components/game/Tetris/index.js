@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useContext} from 'react';
 
 import { createStage, checkCollision } from '../../../config/gameHelpers';
 
@@ -10,16 +10,16 @@ import { useInterval } from '../../../hooks/useInterval';
 import { usePlayer} from '../../../hooks/usePlayer';
 import { useStage } from '../../../hooks/useStage';
 import {useGameStatus} from '../../../hooks/useGameStatus';
-
+import { Context } from '../../../reducer';
 // components
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from './StartButton';
 
 const Tetris = () => {
+    const {store, dispatch} = useContext(Context)
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
-
     const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
     const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
     const  [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared);
@@ -91,7 +91,7 @@ const Tetris = () => {
     useInterval(() => {
         drop();
     }, dropTime)
-
+    console.log('ici', store)
     return(
         <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)} onKeyUp={keyUp}>
             <StyledTetris>

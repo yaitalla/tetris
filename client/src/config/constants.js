@@ -1,7 +1,7 @@
 export const ALERT = 'ALERT';
 export const SERVER_MESSAGE = 'SERVER_MESSAGE';
 export const USERS_UPDATE = 'USERS_UPDATE';
-export const USER_ID = 'USER_ID';
+export const USER_STATUS = 'USER_STATUS';
 export const ROOM_CREATED = 'ROOM_CREATED';
 export const ACTUAL_ROOM = 'ACTUAL_ROOM';
 export const ROOM_UPDATE = 'ROOM_UPDATE';

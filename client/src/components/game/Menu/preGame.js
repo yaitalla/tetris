@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect }  from 'react';
 import { Wrap, Back, MiddleWrap, RoomSection, UserSection, StyledTitle, StyledInput, StyledForm, RoomButton, LineWrap, Enter } from './style';
-import { MENU, GAME_STATUS } from '../../../config/constants';
+import { MENU, GAME_STATUS, USER_LIST } from '../../../config/constants';
 import {Context} from '../../../reducer';
 import SocketContext from '../../../sockets/context';
 import { createRoom, enterRoom } from '../../../sockets/emit';
 
 const RoomLine = ({room, i}) => {
-    console.log(room)
+    // console.log(room)
     return (
         <LineWrap>
             {
@@ -21,10 +21,12 @@ const RoomLine = ({room, i}) => {
 const Pregame = ({callback}) => {
     const {store, dispatch} = useContext(Context)
     let input;
-    console.log('la',store)
+    // console.log('update',store)
+    console.log(callback)
+    
     return (
         <Wrap>
-            <Back onClick={() => callback({type: GAME_STATUS, gameStatus: MENU})} >Back</Back>
+            <Back onClick={() => callback({type: GAME_STATUS, gameStatus: USER_LIST})} >Back</Back>
             <MiddleWrap>
                 <RoomSection>
                     <StyledTitle>Rooms</StyledTitle>

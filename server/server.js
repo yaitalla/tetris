@@ -1,7 +1,7 @@
 const fs = require('fs')
 const debug = require('debug')
 // const grid = require('./Process/grid');
-// const shaper = require('./Process/shapes');
+const tenMoreShapes = require('./game/moreShapes');
 
 const nextShape = (room, index, grid) => {
   const shape = room.shapes[index+1].shape;
@@ -61,12 +61,13 @@ const initEngine = io => {
         name: roomname,
         owner: socket.id,
         users: [],
+        shapes: tenMoreShapes([])
       }
       roomlist.push(data)
       io.emit('ROOM_CREATED', roomlist)
     })
     //io.to(socket.id).emit('USER_ID', socket.id);
-    socket.emit('USER_ID', socket.id)
+    socket.emit('USER_STATUS', {id: socket.id, pos: {x: 0, y: 0}, tetromino: 0, collided: false})
     socket.on('PAUSE', data => {
       io.in(data.room).emit('PAUSE', {
         playing: data.playing == true ? false : true,

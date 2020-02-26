@@ -1,16 +1,15 @@
 import React, { useContext, useCallback }  from 'react';
 import Tetris from '../Tetris';
+import Pregame from './preGame';
 import {Context} from '../../../reducer';
 
 const Menu = ({callback}) => {
-    // const { actualRoom } = useContext(SocketContext);
    
-    const {store} = useContext(Context)
+    const {store, dispatch} = useContext(Context)
     return (
         <div>
-            <Tetris/>
             {
-                // store.actualRoom ? <Tetris/> : <Pregame/>
+                store.actualRoom ? <Tetris/> : <Pregame callback={dispatch}/>
             }
         </div>
     )

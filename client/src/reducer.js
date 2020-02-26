@@ -2,13 +2,13 @@ import { createContext } from 'react';
 import { SERVER_MESSAGE, ROOM_CREATED, 
     GAME_STATUS, ROOM_UPDATE, MENU, USER_LIST,
     USERS_UPDATE, USER_ID, ACTUAL_ROOM, 
-    PAUSE, START, LEAVE, FALL } from './config/constants';
+    PAUSE, START, LEAVE, FALL, USER_STATUS } from './config/constants';
 
 export const initialState = {
     users: [],
     rooms: [],
     gameStatus: USER_LIST,
-    userID: [],
+    status: {},
     actualRoom: ""
 }
 
@@ -26,10 +26,10 @@ export const reducer =  (state, action) => {
                 ...state,
                 users: action.userlist
             }
-        case USER_ID:
+        case USER_STATUS:
             return {
                 ...state,
-                userID: action.userID,
+                status: action.status,
             }
         case GAME_STATUS:
                 return {
