@@ -66,7 +66,7 @@ export const Wrap = styled.div`
 `
 
 export const Background = styled.div`
-    background: url(https://img.pngio.com/star-wars-space-backgrounds-wallpaper-cave-star-wars-background-png-1024_576.png);
+    background: silver;
     position: absolute;
 	  width: 100%;
     height: 100%;

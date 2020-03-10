@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { SERVER_MESSAGE, ROOM_CREATED, 
-    GAME_STATUS, ROOM_UPDATE, MENU, USER_LIST,
+    GAME_STATUS, ROOMS_UPDATE, MENU, USER_LIST,
     USERS_UPDATE, USER_ID, ACTUAL_ROOM, 
     PAUSE, START, LEAVE, FALL, USER_STATUS } from './config/constants';
 
@@ -9,7 +9,8 @@ export const initialState = {
     rooms: [],
     gameStatus: USER_LIST,
     status: {},
-    actualRoom: ""
+    actualRoom: "",
+    enemi: {}
 }
 
 export const Context = createContext();
@@ -36,7 +37,7 @@ export const reducer =  (state, action) => {
                     ...state,
                     gameStatus: action.gameStatus,
                 }
-        case ROOM_UPDATE:
+        case ROOMS_UPDATE:
             return {
                 ...state,
                 rooms: action.roomlist,

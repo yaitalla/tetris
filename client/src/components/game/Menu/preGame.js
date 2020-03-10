@@ -6,7 +6,7 @@ import SocketContext from '../../../sockets/context';
 import { createRoom, enterRoom } from '../../../sockets/emit';
 
 const RoomLine = ({room, i}) => {
-    // console.log(room)
+    // console.log(room, i)
     return (
         <LineWrap>
             {
@@ -22,7 +22,7 @@ const Pregame = ({callback}) => {
     const {store, dispatch} = useContext(Context)
     let input;
     // console.log('update',store)
-    console.log(callback)
+    // console.log(callback)
     
     return (
         <Wrap>

@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react';
-
+import { useState, useCallback, useContext } from 'react';
+import {Context} from '../reducer';
 import {TETROMINOS, randomTetromino} from '../config/tetrominos';
 import { STAGE_WIDTH, checkCollision } from '../config/gameHelpers';
 
 export const usePlayer = () => {
+    const {store, dispatch} = useContext(Context)
     const[player, setPlayer] = useState({
         pos: {x: 0, y: 0},
         tetromino: TETROMINOS[0].shape,
@@ -43,15 +44,17 @@ export const usePlayer = () => {
             ...prev,
             pos: {x: (prev.pos.x += x), y: (prev.pos.y += y)},
             collided,
+            i
         }))
     }
 
-    const resetPlayer = useCallback(() => {
-        console.log('reset player')
+    const resetPlayer = useCallback((shapeIndex) => {
+        console.log(store.actualRoom)
         setPlayer ({
             pos: {x: STAGE_WIDTH / 2 - 2, y: 0},
             tetromino: randomTetromino().shape,
             collided: false,
+            i: 0
         })
     }, [])
 

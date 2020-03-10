@@ -5,7 +5,7 @@ import bgImage from '../../../../config/bg.png';
 export const StyledTetrisWrapper = styled.div `
     width: 100vw;
     height: 100vh;
-    background: url(${bgImage}) #000;
+    background: silver;
     background-size: cover;
     overflow: hidden;
 `;

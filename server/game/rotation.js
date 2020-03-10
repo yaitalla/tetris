@@ -1,5 +1,6 @@
 const checkCollision = require('./checkCollision');
 const rotate = require('./rotate');
+
 const rotation = (player, stage, dir) => {
     const clone = JSON.parse(JSON.stringify(player));
     const pos = clone.pos.x;

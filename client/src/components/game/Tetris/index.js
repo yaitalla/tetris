@@ -33,8 +33,8 @@ const Tetris = () => {
 
     const startGame = () => {
         //reset everything
-        setStage(createStage());
-        setDropTime(1000);
+        // setStage(createStage());
+        // setDropTime(1000);
         resetPlayer();
         setGameOver(false);
         setScore(0);
@@ -42,6 +42,7 @@ const Tetris = () => {
     }
 
     const drop = () => {
+        console.log('drop here')
         // Increase level when player has cleared 10 rows
         if (rows > (level + 1) * 10) {
             setLevel(prev => prev + 1);
@@ -91,7 +92,8 @@ const Tetris = () => {
     useInterval(() => {
         drop();
     }, dropTime)
-    console.log('ici', store)
+    // console.log(dropTime, player, rows, score, level, stage)
+    // console.log('ici', store)
     return(
         <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)} onKeyUp={keyUp}>
             <StyledTetris>
@@ -108,7 +110,11 @@ const Tetris = () => {
                     )}
                     <StartButton callback={startGame}/>
                 </aside>
-                <Stage stage={stage} />
+                {
+                    store.actualRoom.users.length > 1 ? <Stage stage={stage} />
+                    : null
+                }
+                
             </StyledTetris>
             
         </StyledTetrisWrapper>
