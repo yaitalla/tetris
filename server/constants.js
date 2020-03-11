@@ -13,5 +13,8 @@ module.exports = {
     PAUSE:          'PAUSE',
     START:          'START',
     DROP:           'DROP',
-    STAGE_WIDTH:    12
+    STAGE_WIDTH:    12,
+    MULTI:          'MULTI',
+    ENEMI:          'ENEMI',
+    MORE_SHAPES:    'MORE_SHAPES'
 }

@@ -1,13 +1,15 @@
-import {useState, useEffect } from 'react';
+import {useState, useEffect, useContext } from 'react';
 import { createStage} from '../config/gameHelpers';
+import {Context} from '../reducer';
 
 export const useStage = (player, resetPlayer) => {
     const [stage, setStage] = useState(createStage());
     const [rowsCleared, setRowsCleared] = useState(0);
+    const {store, dispatch} = useContext(Context)
 
     useEffect(() => {
         setRowsCleared(0);
-
+        // console.log(player)
         const sweepRows = newStage =>
             newStage.reduce((ack, row) => {
                 if (row.findIndex(cell => cell[0] === 0) === -1) {
@@ -36,7 +38,7 @@ export const useStage = (player, resetPlayer) => {
             });
 
             if (player.collided) {
-                resetPlayer();
+                resetPlayer(player.i + 1, store.actualRoom.shapes);
                 return sweepRows(newStage);
             }
 

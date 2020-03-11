@@ -39,6 +39,19 @@ const socketEngine = io => {
             io.emit(CONSTANT.ROOMS_UPDATE, roomlist)
         })
 
+        socket.on(CONSTANT.MULTI, data => { //ACTUAL_ROOM
+          for(let i in data.room.users){
+            if(data.room.users[i] !== socket.id){
+              io.to(data.room.users[i]).emit(CONSTANT.ENEMI, data)
+            }
+          }
+        })
+
+        socket.on(CONSTANT.MORE_SHAPES, room => {
+          const newShapes = tenMoreShapes(room.shapes)
+          room.shapes = newShapes;
+          io.in(room.name).emit(CONSTANT.MORE_SHAPES, room)
+        })
         // socket.on(CONSTANT.START, ({room, player}) => { //START
         //     let newStatus = room.status === CONSTANT.NEW ? CONSTANT.PLAYING 
         //                   : room.status === CONSTANT.PAUSE ? CONSTANT.PLAYING : CONSTANT.PAUSE;

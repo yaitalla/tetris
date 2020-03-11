@@ -2,21 +2,27 @@ import { createContext } from 'react';
 import { SERVER_MESSAGE, ROOM_CREATED, 
     GAME_STATUS, ROOMS_UPDATE, MENU, USER_LIST,
     USERS_UPDATE, USER_ID, ACTUAL_ROOM, 
-    PAUSE, START, LEAVE, FALL, USER_STATUS } from './config/constants';
-
+    PAUSE, START, LEAVE, NEW, PLAYER_STATUS, ENEMI } from './config/constants';
+import { createStage } from './config/gameHelpers';
 export const initialState = {
     users: [],
     rooms: [],
-    gameStatus: USER_LIST,
+    gameStatus: NEW,
     status: {},
     actualRoom: "",
-    enemi: {}
+    enemi: { stage: createStage()}
 }
 
 export const Context = createContext();
 
 export const reducer =  (state, action) => {
+    console.log(action.type)
     switch(action.type){
+        case ENEMI:
+            return {
+                ...state,
+                enemi: action.enemi
+            }
         case ACTUAL_ROOM:
             return {
                 ...state,
@@ -27,7 +33,7 @@ export const reducer =  (state, action) => {
                 ...state,
                 users: action.userlist
             }
-        case USER_STATUS:
+        case PLAYER_STATUS:
             return {
                 ...state,
                 status: action.status,

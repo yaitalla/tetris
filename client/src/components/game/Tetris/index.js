@@ -15,6 +15,8 @@ import { Context } from '../../../reducer';
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from './StartButton';
+import { multiPlayer, tenMoreShapes } from '../../../sockets/emit';
+import { NEW } from '../../../config/constants';
 
 const Tetris = () => {
     const {store, dispatch} = useContext(Context)
@@ -34,15 +36,24 @@ const Tetris = () => {
     const startGame = () => {
         //reset everything
         // setStage(createStage());
-        // setDropTime(1000);
-        resetPlayer();
-        setGameOver(false);
-        setScore(0);
-        setLevel(0);
+        console.log(store.actualRoom)
+        if (store.actualRoom.owner === store.status.id && store.gameStatus === NEW) {
+            setDropTime(1000);
+            resetPlayer(0);
+            setGameOver(false);
+            setScore(0);
+            setLevel(0);
+            // console.log('player', player)
+            if(store.actualRoom.users.length > 1) {
+                multiPlayer(dropTime, player, rows, score, level, stage, store.actualRoom)
+            }
+        }
+        
+    // console.log(dropTime, player, rows, score, level, stage)
     }
 
     const drop = () => {
-        console.log('drop here')
+        // console.log('drop here')
         // Increase level when player has cleared 10 rows
         if (rows > (level + 1) * 10) {
             setLevel(prev => prev + 1);
@@ -92,8 +103,15 @@ const Tetris = () => {
     useInterval(() => {
         drop();
     }, dropTime)
+    if (store.actualRoom.shapes.length < player.i + 2){
+        // console.log('ici plus', store.actualRoom.shapes.length, player.i)
+        tenMoreShapes(store.actualRoom)
+    }
     // console.log(dropTime, player, rows, score, level, stage)
-    // console.log('ici', store)
+    console.log(store)
+    // if(store.actualRoom.users.length > 1) {
+    //     multiPlayer(dropTime, player, rows, score, level, stage, store.actualRoom)
+    // }
     return(
         <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)} onKeyUp={keyUp}>
             <StyledTetris>
@@ -111,7 +129,7 @@ const Tetris = () => {
                     <StartButton callback={startGame}/>
                 </aside>
                 {
-                    store.actualRoom.users.length > 1 ? <Stage stage={stage} />
+                    store.actualRoom.users.length > 1 ? <Stage stage={store.enemi.stage} />
                     : null
                 }
                 

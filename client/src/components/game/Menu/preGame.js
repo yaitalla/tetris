@@ -5,8 +5,8 @@ import {Context} from '../../../reducer';
 import SocketContext from '../../../sockets/context';
 import { createRoom, enterRoom } from '../../../sockets/emit';
 
-const RoomLine = ({room, i}) => {
-    // console.log(room, i)
+const RoomLine = ({room, i, id}) => {
+    const checkOwner = room.owner === id
     return (
         <LineWrap>
             {
@@ -32,7 +32,7 @@ const Pregame = ({callback}) => {
                     <StyledTitle>Rooms</StyledTitle>
                     {
                         store.rooms.length > 0 ? 
-                        store.rooms.map((room, i) => <RoomLine  room={room} i={i} key={i}></RoomLine>) 
+                        store.rooms.map((room, i) => <RoomLine  room={room} i={i} id={store.status.id} key={i}></RoomLine>) 
                                     : null
                     }
                 </RoomSection>

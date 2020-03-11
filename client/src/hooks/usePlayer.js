@@ -9,6 +9,7 @@ export const usePlayer = () => {
         pos: {x: 0, y: 0},
         tetromino: TETROMINOS[0].shape,
         collided: false,
+        i: 0
     });
 
     const rotate = (matrix, dir) => {
@@ -44,17 +45,17 @@ export const usePlayer = () => {
             ...prev,
             pos: {x: (prev.pos.x += x), y: (prev.pos.y += y)},
             collided,
-            i
         }))
     }
 
-    const resetPlayer = useCallback((shapeIndex) => {
-        console.log(store.actualRoom)
+    const resetPlayer = useCallback((shapeIndex,  shapes) => {
+        const shapesToprint = shapes ? shapes : store.actualRoom.shapes
+        console.log(shapeIndex)
         setPlayer ({
             pos: {x: STAGE_WIDTH / 2 - 2, y: 0},
-            tetromino: randomTetromino().shape,
+            tetromino: shapesToprint[shapeIndex].shape,
             collided: false,
-            i: 0
+            i: shapeIndex
         })
     }, [])
 
