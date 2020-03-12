@@ -9,11 +9,12 @@ import {Wrap} from './game/style';
 import { MENU, USER_LIST, USER_STATUS } from '../config/constants';
 import SocketContext from '../sockets/context';
 import Menu from './game/Menu';
+import 'regenerator-runtime';
 
 const App = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const {room, rooms} = useContext(SocketContext)
-  // if (room) console.log(room)
+  // console.log(store)
   return (
     <Context.Provider value={{store, dispatch}} >
       <SocketProvider>

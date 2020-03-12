@@ -15,64 +15,64 @@ import { Context } from '../../../reducer';
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from './StartButton';
-import { multiPlayer, tenMoreShapes } from '../../../sockets/emit';
-import { NEW } from '../../../config/constants';
+import { multiPlayer, tenMoreShapes, start, waittingOwner } from '../../../sockets/emit';
+import { NEW, PLAYING, PAUSE, GAME_STATUS, ACTUAL_ROOM, WAITING } from '../../../config/constants';
 
 const Tetris = () => {
     const {store, dispatch} = useContext(Context)
-    const [dropTime, setDropTime] = useState(null);
+    const [dropTime, setDropTime] = useState(1000);
     const [gameOver, setGameOver] = useState(false);
     const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
     const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
     const  [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared);
 
-
+console.log('premier',store.actualRoom)
     const movePlayer = dir => {
         if (!checkCollision(player, stage, {x: dir, y: 0})) {
             updatePlayerPos({x: dir, y: 0 });
         }
     }
-
+    
     const startGame = () => {
-        //reset everything
-        // setStage(createStage());
-        console.log(store.actualRoom)
-        if (store.actualRoom.owner === store.status.id && store.gameStatus === NEW) {
-            setDropTime(1000);
-            resetPlayer(0);
-            setGameOver(false);
-            setScore(0);
-            setLevel(0);
-            // console.log('player', player)
-            if(store.actualRoom.users.length > 1) {
-                multiPlayer(dropTime, player, rows, score, level, stage, store.actualRoom)
+        if (store.actualRoom.owner === store.status.id){
+            if (store.actualRoom.status === NEW || store.actualRoom.status === WAITING){
+                resetPlayer(0);
+            }
+            start(store.actualRoom)
+        }
+    }
+    const autoGame = (room) => {
+        if (store.actualRoom.owner !== store.status.id){
+            switch(room.status) {
+                case NEW:
+                    waittingOwner(store.actualRoom)
+                    console.log('deuxieme',store.actualRoom)
+                    // resetPlayer(0);
+                    break;
+                case PLAYING:
+                        console.log('autoGame: ', PLAYING);
+                        break;
+                default:
+                    break;
             }
         }
-        
-    // console.log(dropTime, player, rows, score, level, stage)
     }
 
     const drop = () => {
-        // console.log('drop here')
-        // Increase level when player has cleared 10 rows
         if (rows > (level + 1) * 10) {
             setLevel(prev => prev + 1);
-            // Also increase speed
             setDropTime(1000 / (level + 1) + 200);
         }
         if (!checkCollision(player, stage, {x: 0, y: 1})) {
             updatePlayerPos({x: 0, y: 1, collided: false })
         } else {
-            //Game Over
             if (player.pos.y < 1) {
-                console.log("GAME OVER");
                 setGameOver(true);
                 setDropTime(null);
             }
             updatePlayerPos({x: 0, y: 0, collided: true});
         }
     }
-
     const keyUp = ({keyCode }) => {
         if (!gameOver) {
             if (keyCode === 40) {
@@ -80,14 +80,12 @@ const Tetris = () => {
             }
         }
     }
-
     const dropPlayer = () => {
         setDropTime(null);
         drop();
     }
-
     const move = ({keyCode}) => {
-        if (!gameOver) {
+        if (!gameOver && store.actualRoom.status === PLAYING) {
             if (keyCode === 37) {
                 movePlayer(-1);
             }else if (keyCode === 39) {
@@ -101,14 +99,15 @@ const Tetris = () => {
     }
 
     useInterval(() => {
-        drop();
+        if (store.actualRoom.status === PLAYING){
+            drop();
+        }
     }, dropTime)
     if (store.actualRoom.shapes.length < player.i + 2){
-        // console.log('ici plus', store.actualRoom.shapes.length, player.i)
         tenMoreShapes(store.actualRoom)
     }
     // console.log(dropTime, player, rows, score, level, stage)
-    console.log(store)
+    autoGame(store.actualRoom)
     // if(store.actualRoom.users.length > 1) {
     //     multiPlayer(dropTime, player, rows, score, level, stage, store.actualRoom)
     // }
@@ -126,7 +125,9 @@ const Tetris = () => {
                             <Display text={`Level: ${level}`} />
                         </div>
                     )}
-                    <StartButton callback={startGame}/>
+                    {
+                        gameOver ? null : <StartButton callback={startGame}/>
+                    }
                 </aside>
                 {
                     store.actualRoom.users.length > 1 ? <Stage stage={store.enemi.stage} />

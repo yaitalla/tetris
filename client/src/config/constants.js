@@ -29,3 +29,4 @@ export const MORE_SHAPES = "MORE_SHAPES";
 export const START_PAGE = "START_PAGE";
 export const PLAYING = "PLAYING";
 export const NEW = "NEW";
+export const WAITING = "WAITING";

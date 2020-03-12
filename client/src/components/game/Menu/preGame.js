@@ -1,17 +1,23 @@
 import React, { useContext, useState, useEffect }  from 'react';
 import { Wrap, Back, MiddleWrap, RoomSection, UserSection, StyledTitle, StyledInput, StyledForm, RoomButton, LineWrap, Enter } from './style';
-import { MENU, GAME_STATUS, USER_LIST } from '../../../config/constants';
+import { MENU, GAME_STATUS, USER_LIST, NEW } from '../../../config/constants';
 import {Context} from '../../../reducer';
 import SocketContext from '../../../sockets/context';
 import { createRoom, enterRoom } from '../../../sockets/emit';
+import Display from '../Tetris/Display';
 
 const RoomLine = ({room, i, id}) => {
     const checkOwner = room.owner === id
     return (
         <LineWrap>
             {
-                room.users.length < 2 ? <Enter onClick={() =>  enterRoom(room.name, i)}>{room.name}</Enter>
-                                        : null
+                room.users.length < 2 && room.status === NEW ? 
+                    <>
+                        <Enter onClick={() =>  enterRoom(room.name, i)}>
+                            {room.name}
+                        </Enter>
+                    </>
+                :   null
             }
             
         </LineWrap>

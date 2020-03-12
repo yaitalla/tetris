@@ -16,7 +16,7 @@ export const initialState = {
 export const Context = createContext();
 
 export const reducer =  (state, action) => {
-    console.log(action.type)
+    console.log(action)
     switch(action.type){
         case ENEMI:
             return {

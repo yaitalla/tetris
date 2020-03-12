@@ -16,5 +16,6 @@ module.exports = {
     STAGE_WIDTH:    12,
     MULTI:          'MULTI',
     ENEMI:          'ENEMI',
-    MORE_SHAPES:    'MORE_SHAPES'
+    MORE_SHAPES:    'MORE_SHAPES',
+    WAITING:        'WAITING'
 }

@@ -33,13 +33,20 @@ const socketEngine = io => {
         })
 
         socket.on(CONSTANT.ACTUAL_ROOM, data => { //ACTUAL_ROOM
+            // console.log(roomlist[data])
             roomlist[data].users.push(socket.id)
             socket.join(roomlist[data].name)
             io.in(roomlist[data].name).emit(CONSTANT.ACTUAL_ROOM, roomlist[data])
-            io.emit(CONSTANT.ROOMS_UPDATE, roomlist)
+            io.emit(CONSTANT.ROOMS_UPDATE, roomlist) //ROOM UPDATE
         })
-
-        socket.on(CONSTANT.MULTI, data => { //ACTUAL_ROOM
+        socket.on(CONSTANT.WAITING, room => {
+          const newRoom = {
+            ...room,
+            status: CONSTANT.WAITING
+          }
+          io.in(room.name).emit(CONSTANT.ACTUAL_ROOM, newRoom)
+        })
+        socket.on(CONSTANT.MULTI, data => { //MULTI
           for(let i in data.room.users){
             if(data.room.users[i] !== socket.id){
               io.to(data.room.users[i]).emit(CONSTANT.ENEMI, data)
@@ -47,19 +54,23 @@ const socketEngine = io => {
           }
         })
 
-        socket.on(CONSTANT.MORE_SHAPES, room => {
+        socket.on(CONSTANT.MORE_SHAPES, room => { //MORE SHAPES
           const newShapes = tenMoreShapes(room.shapes)
           room.shapes = newShapes;
           io.in(room.name).emit(CONSTANT.MORE_SHAPES, room)
         })
-        // socket.on(CONSTANT.START, ({room, player}) => { //START
-        //     let newStatus = room.status === CONSTANT.NEW ? CONSTANT.PLAYING 
-        //                   : room.status === CONSTANT.PAUSE ? CONSTANT.PLAYING : CONSTANT.PAUSE;
-        //     room.status = newStatus
-        //     const newPlayer = playerUpdate(player, room)
-        //     const enemi = playerUpdate(player, room);
-        //     io.in(room.name).emit(CONSTANT.START, {room, newPlayer, enemi})
-        // })
+        socket.on(CONSTANT.START, (room) => { //START
+            let newStatus = room.status === CONSTANT.NEW || room.status === CONSTANT.WAITING ? CONSTANT.PLAYING 
+                          : room.status === CONSTANT.PAUSE ? CONSTANT.PLAYING : CONSTANT.PAUSE;
+            room.status = newStatus
+            roomlist.map((elem, i) => {
+                if (elem.name === room.name){
+                  elem.status = newStatus
+                }
+            })
+            io.in(room.name).emit(CONSTANT.ACTUAL_ROOM, room)
+            io.emit(CONSTANT.ROOMS_UPDATE, roomlist)
+        })
 
         socket.on(CONSTANT.DISCONNECT, () => {
             for (let i in roomlist) {

@@ -10,7 +10,6 @@ export const socket = io(SOCKET_API_URL);
 
 export const check = (setValue, dispatch) => {
     socket.on(MORE_SHAPES, actualRoom => {
-        // console.log(actualRoom)
         dispatch({type: ACTUAL_ROOM, room: actualRoom})
     })
     socket.on(ENEMI, data => {
@@ -18,26 +17,22 @@ export const check = (setValue, dispatch) => {
         dispatch({type: ENEMI, enemi: data})
     })
     socket.on(PLAYER_STATUS, (status) => {
-        //   console.log("userID  update", status)
          dispatch({type: PLAYER_STATUS, status: status})
     });
     socket.on(USERS_UPDATE, (users) => {
-        //   console.log("users update", users)
           dispatch({type: USERS_UPDATE, userlist: users})
         // setValue((state) => {
         //     return {...state, users}
         // })
     });
     socket.on(ROOM_CREATED, (rooms) => {
-        //  console.log("rooms update", rooms)
          dispatch({type: ROOM_UPDATE, roomlist: rooms})
     });
     socket.on(ACTUAL_ROOM, (actualRoom) => {
-        //  console.log("entering room", actualRoom)
          dispatch({type: ACTUAL_ROOM, room: actualRoom})
     });
     socket.on(ROOMS_UPDATE, (rooms) => {
-        // console.log("update rooms", rooms)
+        // console.log(rooms)
         dispatch({type: ROOMS_UPDATE, roomlist: rooms})
    });
 }

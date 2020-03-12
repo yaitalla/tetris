@@ -7,7 +7,7 @@ export const usePlayer = () => {
     const {store, dispatch} = useContext(Context)
     const[player, setPlayer] = useState({
         pos: {x: 0, y: 0},
-        tetromino: TETROMINOS[0].shape,
+        tetromino: store.actualRoom.shapes[0].shape,
         collided: false,
         i: 0
     });
