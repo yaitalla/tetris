@@ -10,13 +10,13 @@ export const initialState = {
     gameStatus: NEW,
     status: {},
     actualRoom: "",
-    enemi: { stage: createStage()}
+    enemi: createStage()
 }
 
 export const Context = createContext();
 
 export const reducer =  (state, action) => {
-    console.log(action)
+    // console.log(action)
     switch(action.type){
         case ENEMI:
             return {

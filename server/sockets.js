@@ -49,7 +49,7 @@ const socketEngine = io => {
         socket.on(CONSTANT.MULTI, data => { //MULTI
           for(let i in data.room.users){
             if(data.room.users[i] !== socket.id){
-              io.to(data.room.users[i]).emit(CONSTANT.ENEMI, data)
+              io.to(data.room.users[i]).emit(CONSTANT.MULTI, data.stage)
             }
           }
         })

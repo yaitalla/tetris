@@ -4,8 +4,8 @@ import { SERVER_MESSAGE, ROOM_CREATED, ALERT, ROOMS_UPDATE,
     START, LEAVE, ENTER_ROOM, CREATE_ROOM, MULTI, MORE_SHAPES, WAITING } from '../config/constants';
 
 
-export const multiPlayer = (dropTime, player, rows, score, level, stage, room) => {
-  socket.emit(MULTI, {dropTime, player, rows, score, level, stage, room});
+export const multiPlayer = ( stage, room) => {
+  socket.emit(MULTI, {stage, room});
 }
 export const tenMoreShapes = (room) => {
   socket.emit(MORE_SHAPES, room)

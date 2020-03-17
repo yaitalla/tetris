@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 import bgImage from '../../../../config/bg.png';
 
+export const Sider = styled.aside`
+    border: 1px solid pink;
+    display: flex;
+    justify-content: center;
+`;
+
 export const StyledTetrisWrapper = styled.div `
     width: 100vw;
     height: 100vh;

@@ -7,7 +7,7 @@ export const usePlayer = () => {
     const {store, dispatch} = useContext(Context)
     const[player, setPlayer] = useState({
         pos: {x: 0, y: 0},
-        tetromino: store.actualRoom.shapes[0].shape,
+        tetromino: TETROMINOS[0].shape,
         collided: false,
         i: 0
     });
@@ -50,7 +50,6 @@ export const usePlayer = () => {
 
     const resetPlayer = useCallback((shapeIndex,  shapes) => {
         const shapesToprint = shapes ? shapes : store.actualRoom.shapes
-        console.log(shapeIndex)
         setPlayer ({
             pos: {x: STAGE_WIDTH / 2 - 2, y: 0},
             tetromino: shapesToprint[shapeIndex].shape,

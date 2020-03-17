@@ -1,9 +1,9 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 
 import { createStage, checkCollision } from '../../../config/gameHelpers';
 
 // Styled Components
-import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
+import { StyledTetrisWrapper, StyledTetris, Sider } from './styles/StyledTetris';
 
 // Custom Hooks
 import { useInterval } from '../../../hooks/useInterval';
@@ -17,6 +17,7 @@ import Display from './Display';
 import StartButton from './StartButton';
 import { multiPlayer, tenMoreShapes, start, waittingOwner } from '../../../sockets/emit';
 import { NEW, PLAYING, PAUSE, GAME_STATUS, ACTUAL_ROOM, WAITING } from '../../../config/constants';
+import NextShape from './NextShape';
 
 const Tetris = () => {
     const {store, dispatch} = useContext(Context)
@@ -26,38 +27,12 @@ const Tetris = () => {
     const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
     const  [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared);
 
-console.log('premier',store.actualRoom)
     const movePlayer = dir => {
         if (!checkCollision(player, stage, {x: dir, y: 0})) {
             updatePlayerPos({x: dir, y: 0 });
         }
     }
     
-    const startGame = () => {
-        if (store.actualRoom.owner === store.status.id){
-            if (store.actualRoom.status === NEW || store.actualRoom.status === WAITING){
-                resetPlayer(0);
-            }
-            start(store.actualRoom)
-        }
-    }
-    const autoGame = (room) => {
-        if (store.actualRoom.owner !== store.status.id){
-            switch(room.status) {
-                case NEW:
-                    waittingOwner(store.actualRoom)
-                    console.log('deuxieme',store.actualRoom)
-                    // resetPlayer(0);
-                    break;
-                case PLAYING:
-                        console.log('autoGame: ', PLAYING);
-                        break;
-                default:
-                    break;
-            }
-        }
-    }
-
     const drop = () => {
         if (rows > (level + 1) * 10) {
             setLevel(prev => prev + 1);
@@ -103,19 +78,37 @@ console.log('premier',store.actualRoom)
             drop();
         }
     }, dropTime)
-    if (store.actualRoom.shapes.length < player.i + 2){
+    useInterval(() => {
+        if (store.actualRoom.status === PLAYING && !gameOver){
+                multiPlayer(stage, store.actualRoom)
+        }
+    }, 1500)
+    if (store.actualRoom.shapes.length < player.i + 3){
         tenMoreShapes(store.actualRoom)
     }
-    // console.log(dropTime, player, rows, score, level, stage)
-    autoGame(store.actualRoom)
-    // if(store.actualRoom.users.length > 1) {
-    //     multiPlayer(dropTime, player, rows, score, level, stage, store.actualRoom)
-    // }
+    const startGame = () => {
+        if (store.actualRoom.owner === store.status.id){
+            if (store.actualRoom.status === NEW 
+                || store.actualRoom.status === WAITING){
+                    resetPlayer(0);
+            }
+            start(store.actualRoom)
+        }
+    }
+    useEffect(() => {
+        if (store.actualRoom.owner !== store.status.id
+            && store.actualRoom.status === NEW){
+                waittingOwner(store.actualRoom)
+                resetPlayer(0);
+        }
+    }, [store])
+    
+    // console.log(player.i)
     return(
         <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)} onKeyUp={keyUp}>
             <StyledTetris>
                 <Stage stage={stage} />
-                <aside>
+                <Sider>
                     {gameOver ? (
                         <Display gameOver={gameOver} text="Game Over" />
                     ) : (
@@ -123,14 +116,17 @@ console.log('premier',store.actualRoom)
                             <Display text={`Score: ${score}`} />
                             <Display text={`rows: ${rows}`}/>
                             <Display text={`Level: ${level}`} />
+                            <NextShape shape={store.actualRoom.shapes[player.i+1].shape} />    
                         </div>
                     )}
                     {
                         gameOver ? null : <StartButton callback={startGame}/>
                     }
-                </aside>
+                    
+                    
+                </Sider>
                 {
-                    store.actualRoom.users.length > 1 ? <Stage stage={store.enemi.stage} />
+                    store.actualRoom.users.length > 1 ? <Stage stage={store.enemi} />
                     : null
                 }
                 
