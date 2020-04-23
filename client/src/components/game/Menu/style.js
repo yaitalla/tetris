@@ -27,12 +27,12 @@ export const Back = styled.button`
     font-family: TextSF, Arial;
     color: red;
     font-size: 1rem;
-    height: 80px;
+    height: 40px;
     width: 100px;
     background: transparent;
     cursor: pointer;
     border: 1px solid silver;
-    border-radius: 50%;
+    border-radius: 10px;
     &:hover{
         color: black;
         background-color: white;

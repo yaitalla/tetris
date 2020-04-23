@@ -1,12 +1,7 @@
 const fs = require('fs')
 const debug = require('debug')
-const tenMoreShapes = require('./game/moreShapes');
-const createStage = require('./game/createStage');
 const Engine = require('./sockets');
 
-
-let users = [];
-let roomlist = [];
 
 const logerror = debug('tetris:error')
   , loginfo = debug('tetris:log')
@@ -15,8 +10,6 @@ const initApp = (app, params, cb) => {
   const {host, port} = params
   const handler = (req, res) => {
     const file = req.url === '/bundle.js' ? '/../../build/bundle.js' : '/../../index.html'
-    loginfo('file to read: ' + file)
-    loginfo('ici')
     fs.readFile(__dirname + file, (err, data) => {
       if (err) {
         logerror(err)

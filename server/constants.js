@@ -17,5 +17,9 @@ module.exports = {
     MULTI:          'MULTI',
     ENEMI:          'ENEMI',
     MORE_SHAPES:    'MORE_SHAPES',
-    WAITING:        'WAITING'
+    WAITING:        'WAITING',
+    WINNER:         'WINNER',
+    QUICK_PLAY:     'QUICK_PLAY',
+    LEAVE_ENDURO:   'LEAVE_ENDURO',
+    START_QUICK:    'START_QUICK'
 }

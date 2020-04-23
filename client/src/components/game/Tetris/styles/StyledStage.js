@@ -13,6 +13,18 @@ export const StyledStage = styled.div `
     max-width: 25vw;
     background: #111;
 `;
+export const Winner = styled.div`
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 25vw;
+        min-height: 25vh;
+        min-width: 100px;
+        width: 100%;
+        height: 100%;
+        color: white;
+        background: black;
+`;
 export const DisplayP = styled.p`
     font-family: Pixel, Aria, Helvetica, sans-serif;
     color: #999;

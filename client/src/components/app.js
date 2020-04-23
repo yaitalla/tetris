@@ -2,11 +2,10 @@ import React, {useState, useReducer, useCallback, useContext} from 'react'
 import StartPage from './game/startpage/StartPage';
 import  {reducer, initialState, Context } from '../reducer';
 import SocketProvider from '../sockets';
-// import { Agent } from 'https';
-import Pregame from './game/Menu/preGame';
 // Style
 import {Wrap} from './game/style';
-import { MENU, USER_LIST, USER_STATUS } from '../config/constants';
+import QuickPlay from './game/Quickplay';
+import { MENU, USER_LIST, USER_STATUS, QUICK_PLAY, START_PAGE } from '../config/constants';
 import SocketContext from '../sockets/context';
 import Menu from './game/Menu';
 import 'regenerator-runtime';
@@ -20,8 +19,9 @@ const App = () => {
       <SocketProvider>
         <Wrap>
             {
-              store.gameStatus === USER_LIST ? <StartPage callback={dispatch}/>
-                                        :  <Menu callback={dispatch}/> 
+              store.gameStatus === START_PAGE ? <StartPage callback={dispatch}/> :
+              store.gameStatus === QUICK_PLAY ? <QuickPlay callback={dispatch}/>
+                                              :  <Menu callback={dispatch}/> 
             }
         </Wrap>
       </SocketProvider>

@@ -49,6 +49,7 @@ export const usePlayer = () => {
     }
 
     const resetPlayer = useCallback((shapeIndex,  shapes) => {
+        console.log('useplayer', store, shapes)
         const shapesToprint = shapes ? shapes : store.actualRoom.shapes
         setPlayer ({
             pos: {x: STAGE_WIDTH / 2 - 2, y: 0},

@@ -1,6 +1,7 @@
 import {useState, useEffect, useContext } from 'react';
 import { createStage} from '../config/gameHelpers';
 import {Context} from '../reducer';
+import { multiPlayer } from '../sockets/emit';
 
 export const useStage = (player, resetPlayer) => {
     const [stage, setStage] = useState(createStage());
@@ -38,14 +39,16 @@ export const useStage = (player, resetPlayer) => {
             });
 
             if (player.collided) {
+                let ret = sweepRows(newStage);
                 resetPlayer(player.i + 1, store.actualRoom.shapes);
-                return sweepRows(newStage);
+                multiPlayer(ret, store.actualRoom)
+                return ret;
             }
 
             return newStage;
         };
         setStage(prev => updateStage(prev));
-    }, [player, resetPlayer]);
+    }, [player, resetPlayer, multiPlayer]);
 
     return [stage, setStage, rowsCleared];
 };

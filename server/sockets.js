@@ -2,9 +2,12 @@ const debug = require('debug')
 const tenMoreShapes = require('./game/moreShapes');
 const playerUpdate = require('./game/playerUpdate');
 const initPlayer = require('./game/initPlayer');
+const newquickplay = require('./game/quickplay');
 const CONSTANT = require('./constants');
 let users = [];
 let roomlist = [];
+let quickies = [];
+
 
 const logerror = debug(CONSTANT.LOG_ERROR)
   , loginfo = debug(CONSTANT.LOGINFO)
@@ -39,6 +42,16 @@ const socketEngine = io => {
             io.in(roomlist[data].name).emit(CONSTANT.ACTUAL_ROOM, roomlist[data])
             io.emit(CONSTANT.ROOMS_UPDATE, roomlist) //ROOM UPDATE
         })
+        socket.on(CONSTANT.LEAVE_ENDURO, room => { //LEAVE_ENDURO
+          let index = room.users.indexOf(socket.id)
+          room.users.splice(index, 1)
+          socket.leave(room.name)
+          socket.emit(CONSTANT.ACTUAL_ROOM, "")
+          if (room.owner === socket.id){
+            room.owner = room.users[0]
+          }
+          io.in(room.name).emit(CONSTANT.ACTUAL_ROOM, room)
+        })
         socket.on(CONSTANT.WAITING, room => {
           const newRoom = {
             ...room,
@@ -46,14 +59,42 @@ const socketEngine = io => {
           }
           io.in(room.name).emit(CONSTANT.ACTUAL_ROOM, newRoom)
         })
-        socket.on(CONSTANT.MULTI, data => { //MULTI
-          for(let i in data.room.users){
-            if(data.room.users[i] !== socket.id){
-              io.to(data.room.users[i]).emit(CONSTANT.MULTI, data.stage)
+        socket.on(CONSTANT.QUICK_PLAY, () => { //QUICK_PLAY
+          let i = quickies.length, data = {};
+          if (i === 0){ //NO QUIPLAY YET
+            data = newquickplay(i+1, socket.id)
+            quickies.push(data)
+            socket.join(data.name)
+            socket.emit(CONSTANT.ACTUAL_ROOM, quickies[i])
+            console.log(quickies[i])
+        } else {
+            if (quickies[i-1].users.length < 5){
+              quickies[i-1].users.push({token: socket.id, stage: []})
+              socket.join(quickies[i-1])
+              io.in(quickies[i-1]).emit(CONSTANT.ACTUAL_ROOM, quickies[i-1])
+              console.log(quickies[i-1])
+            } else {
+              quickies.push(newquickplay(i+1, socket.id))
+              socket.join(quickies[i])
+              socket.emit(CONSTANT.ACTUAL_ROOM, quickies[i])
+              console.log(quickies[i])
             }
           }
         })
-
+        socket.on(CONSTANT.MULTI, dataObj => { //MULTI
+          for(let i in dataObj.room.users){
+            if(dataObj.room.users[i] !== socket.id){
+              io.to(dataObj.room.users[i]).emit(CONSTANT.MULTI, dataObj)
+            }
+          }
+        })
+        socket.on(CONSTANT.WINNER, data => { //WINNER
+          for(let i in data.room.users){
+            if(data.room.users[i] !== socket.id){
+              io.to(data.room.users[i]).emit(CONSTANT.WINNER, data)
+            }
+          }
+        })
         socket.on(CONSTANT.MORE_SHAPES, room => { //MORE SHAPES
           const newShapes = tenMoreShapes(room.shapes)
           room.shapes = newShapes;

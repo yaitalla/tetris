@@ -6,4 +6,4 @@ const params = {
      , get url(){ return 'http://' + this.host + ':' + this.port } 
     },
   }
-server(params.server).then( () => console.log('Tetris Server') )
+server(params.server).then( () => console.log('Tetris Server Running') )
