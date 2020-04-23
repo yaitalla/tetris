@@ -1,14 +1,16 @@
-# tetris
+# TETRIS
 
-Intro
-  few steps to follow
-  
-Go to server folder, install and launch:
-$ cd server/
-$ npm i
+## Go to server folder, install npm packages, and launch
+
+``` bash
+$ cd server
+$ npm install
 $ npm run dev
+```
+## Go to client folder, install npm packages, and launch
 
-Go to client folder, install and launch:
-$ cd client/
-$ npm i
+``` bash
+$ cd client
+$ npm install
 $ npm start
+```
