@@ -1,0 +1,6 @@
+module.exports = {
+    USERS_UPDATE: "USERS_UPDATE",
+    YOUR_ID: "YOUR_ID",
+    UPDATE_ROOMS: "UPDATE_ROOMS",
+    UPDATE_DATA: "UPDATE_DATA"
+}

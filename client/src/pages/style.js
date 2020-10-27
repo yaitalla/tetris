@@ -10,10 +10,12 @@ export const Wrapped = styled.section`
     flex-direction: column;
 `;
 
-export const StyledH1 = styled.h1`
-position: absolute;
-top: 30px;
-font-size: 60px;
+export const TabWrap = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
 `;
 
 export const StyledA = styled.a`

@@ -1,10 +1,27 @@
-const startEngine = async io => {
+const CONSTANTS = require('./misc/constants');
+
+const users = [];
+const rooms = [];
+
+const startEngine = io => {
 
     io.on('connection', (socket) => {
-        console.log('user connected', socket.id)
-       
+        if (users.indexOf(socket.id) === -1){
+            users.push(socket.id)
+        }
+        console.log('user connected', socket.id, users)
+        io.emit(CONSTANTS.USERS_UPDATE, users)
+        socket.emit(CONSTANTS.YOUR_ID, socket.id)
+
+        socket.on(CONSTANTS.UPDATE_ROOMS, (room) => {
+            rooms.push(room);
+            io.emit(CONSTANTS.UPDATE_ROOMS, rooms)
+        })
+
         socket.on('disconnect', () => {
-          console.log(socket.id, 'disconnected')
+          users.splice(users.indexOf(socket.id), 1)
+          console.log(socket.id, 'disconnected', users)
+          io.emit(CONSTANTS.USERS_UPDATE, users)
         })
     })
 }
