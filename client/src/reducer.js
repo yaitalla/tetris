@@ -26,6 +26,7 @@ const reducer = ( state, action ) => {
                 my_id: action.yourId
             }
         case UPDATE_ROOMS:
+            console.log(action)
             return {
                 ...state,
                 rooms: action.roomList

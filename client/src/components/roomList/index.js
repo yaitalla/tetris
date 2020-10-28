@@ -1,14 +1,24 @@
 import React, {useContext} from 'react';
 import { Context } from '../../reducer';
-import { Wrap, Line } from './style';
+import { Wrap, Line, StyledA } from './style';
 import { updateRooms } from '../../sockets/events';
+import Link from 'next/link';
+
+const NavLine = ({name, owner}) => {
+    return (
+        <Link href="/" passHref  >
+            <StyledA>
+                <Line>{"name: "+name}</Line>
+                <Line>{"owner: "+owner}</Line>
+            </StyledA>
+        </Link>
+    )
+}
 
 const RoomList = () => {
     const {store} = useContext(Context)
     let input;
     const createRoom = (name) => {
-        console.log("room creayed by: Player" + store.users.indexOf(store.my_id)+1)
-        console.log("room name: ", name)
         updateRooms({roomName: name, ownerIndex: store.users.indexOf(store.my_id)})
     }
     const submitForm = (e) => {
@@ -21,7 +31,7 @@ const RoomList = () => {
         <Wrap>
             {
                 store.rooms ?
-                store.rooms.map((room, i) => <Line key={i} >{room.roomName}</Line>)
+                store.rooms.map((room, i) => <NavLine key={i} name={room.roomName} owner={room.ownerIndex} />)
                 : null
             }
             <form onSubmit={submitForm}>

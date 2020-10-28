@@ -10,4 +10,22 @@ export const Wrap = styled.section`
 `;
 
 export const Line = styled.p`
+    margin: 0;
+
+`;
+
+export const StyledA = styled.a`
+    text-decoration: none;
+    color: black;
+    height: 50px;
+    border: 1px solid ;
+    display: flex;
+    justify-content: space-around;
+    &:hover{
+        cursor: pointer;
+    }
+`;
+
+export const NavLink = styled.div`
+
 `;

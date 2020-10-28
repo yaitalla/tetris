@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { Context } from '../reducer';
 import {Wrapped, StyledA, TabWrap} from './style';
+import Head from 'next/head';
 import Link from 'next/link';
 import SocketProvider from '../sockets';
 import UserList from '../components/userList';
@@ -15,6 +16,10 @@ const Menu = () => {
     }
     return (
     <Wrapped>
+      <Head>
+      <title>Tetris2020</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <SocketProvider>
         <TabWrap>
           <UserList />
