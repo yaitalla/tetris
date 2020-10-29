@@ -9,23 +9,14 @@ export const Wrapped = styled.section`
     align-items: center;
     flex-direction: column;
 `;
-
-export const TabWrap = styled.div`
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    border: 1px solid red;
-`;
-
 export const StyledA = styled.a`
-    font-size: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-decoration: none;
+    color: black;
     height: 50px;
+    border: 1px solid ;
+    display: flex;
+    justify-content: space-around;
     &:hover{
-        border: 1px solid blue;
-        border-radius: 5px;
+        cursor: pointer;
     }
 `;

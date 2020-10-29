@@ -3,7 +3,7 @@ const CONSTANTS = require('./misc/constants');
 const users = [];
 const rooms = [];
 
-const startEngine = io => {
+const startEngine = async io => {
 
     io.on('connection', (socket) => {
         if (users.indexOf(socket.id) === -1){

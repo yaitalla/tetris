@@ -1,41 +1,29 @@
 import { createContext } from 'react';
-import { UPDATE_DATA, UPDATE_ROOMS, LOBBY, STATUS,
-    USERS_UPDATE, YOUR_ID, INROOM
+import { LOBBY, ROOM_UPDATE, USERS
 } from './constants';
 
-const Context = createContext();
+const RoomContext = createContext();
 
 const initialState = {
+    name: "",
+    ownerIndex: -1,
     users: [],
-    rooms: [],
-    my_id: "",
     status: LOBBY
 }
 
 const reducer = ( state, action ) => {
     // console.log(action)
     switch(action.type) {
-        case USERS_UPDATE:
+        case STATUS:
             return {
                 ...state,
                 users: action.users
             }
-        case YOUR_ID:
+        case USERS:
             return {
                 ...state,
                 my_id: action.yourId
             }
-        case UPDATE_ROOMS:
-            return {
-                ...state,
-                rooms: action.roomList
-            }
-        case STATUS: {
-            return {
-                ...state,
-                status: action.update
-            }
-        }
         default:
             return {
                 ...state
@@ -46,5 +34,5 @@ const reducer = ( state, action ) => {
 export {
     initialState,
     reducer,
-    Context
+    RoomContext
 }

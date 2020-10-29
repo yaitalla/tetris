@@ -1,25 +1,33 @@
 import React, {useContext} from 'react';
 import { Context } from '../../reducer';
-import { Wrap, Line, StyledA } from './style';
+import { Wrap, Line, StyledA, NavLink } from './style';
 import { updateRooms } from '../../sockets/events';
 import Link from 'next/link';
+import { STATUS, INROOM } from '../../constants';
 
-const NavLine = ({name, owner}) => {
+const NavLine = ({name, owner, cb}) => {
     return (
-        <Link href="/" passHref  >
+        <NavLink onClick={() => cb({ type: STATUS, update: INROOM })} >
             <StyledA>
                 <Line>{"name: "+name}</Line>
                 <Line>{"owner: "+owner}</Line>
             </StyledA>
-        </Link>
+        </NavLink>
     )
 }
 
 const RoomList = () => {
-    const {store} = useContext(Context)
+    const {store, dispatch} = useContext(Context)
     let input;
     const createRoom = (name) => {
-        updateRooms({roomName: name, ownerIndex: store.users.indexOf(store.my_id)})
+        updateRooms(
+            {
+                name: name,
+                ownerIndex: store.users.indexOf(store.my_id),
+                users: [],
+                status: ""
+            }
+        )
     }
     const submitForm = (e) => {
         e.preventDefault();
@@ -31,9 +39,15 @@ const RoomList = () => {
         <Wrap>
             {
                 store.rooms ?
-                store.rooms.map((room, i) => <NavLine key={i} name={room.roomName} owner={room.ownerIndex} />)
+                store.rooms.map((room, i) =>
+                    <NavLine key={i}
+                        name={room.name}
+                        owner={room.ownerIndex}
+                        cb={dispatch}
+                    />)
                 : null
             }
+            
             <form onSubmit={submitForm}>
                 <input
                     placeholder="enter a room name"

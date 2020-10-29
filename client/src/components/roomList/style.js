@@ -14,7 +14,7 @@ export const Line = styled.p`
 
 `;
 
-export const StyledA = styled.a`
+export const StyledA = styled.div`
     text-decoration: none;
     color: black;
     height: 50px;
