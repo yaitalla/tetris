@@ -5,7 +5,7 @@ import { MERGED } from '../../constants';
 
 const GameField = ({ field }) => {
     // console.log(field[0].length, field.length, field)
-    console.log(field)
+    // console.log(field)
     const maxOffset = (arr) => {
         let ret = [];
         let max = 19;

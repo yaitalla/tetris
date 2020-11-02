@@ -10,3 +10,4 @@ export const USERS = "USERS";
 export const INROOM = "INROOM";
 export const CLEAR = "CLEAR";
 export const MERGED = "MERGED";
+export const SHAPES = "SHAPES";
