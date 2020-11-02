@@ -8,3 +8,5 @@ export const GAME_OVER = "GAME_OVER";
 export const STATUS = "ROOM_UPDATE";
 export const USERS = "USERS";
 export const INROOM = "INROOM";
+export const CLEAR = "CLEAR";
+export const MERGED = "MERGED";
