@@ -10,12 +10,12 @@ const NoSSRNextShape = dynamic(() => import('../nextShape'), {
     ssr: false
 })
 
-const InfoPanel = ({ns, cb}) => {
+const InfoPanel = ({ns, cb, rows, score}) => {
     const {store, dispatch} = useContext(SoloContext)
     return (
         <Wrap>
-            <StyledDisplay>Score: 0</StyledDisplay>
-            <StyledDisplay>rows: 0</StyledDisplay>
+            <StyledDisplay>Score: {score}</StyledDisplay>
+    <StyledDisplay>rows: {rows}</StyledDisplay>
             <StyledDisplay>Level: 1</StyledDisplay>
             <NoSSRNextShape shape={ns} />
             <StartButton onClick={() => cb()} >

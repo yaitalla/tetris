@@ -17,7 +17,7 @@ const Survie = () => {
     const [gameOver, setGameOver] = useState(false);
     const [shapes, setShapes] = useState(store.shapes);
     const [control, position, reset, rotate] = useControl(shapes);
-    const [field, setField, clearRows] = useGameField(control, reset, shapes);
+    const [field, setField, clearedRows, score] = useGameField(control, reset, shapes);
     
     const drop = () => {
         if(!checkCollision(control, field, {x: 0, y: 1})) {
@@ -76,7 +76,10 @@ const Survie = () => {
             </Link>
             <StyledFrame>
                 <GameField field={field}/>
-                <InfoPanel cb={start} ns={shapes[control.i + 1].shape}/>
+                <InfoPanel rows={clearedRows} cb={start}
+                    ns={shapes[control.i + 1].shape}
+                    score={score}
+                />
             </StyledFrame>
         
         </Wrapped>
