@@ -11,3 +11,5 @@ export const INROOM = "INROOM";
 export const CLEAR = "CLEAR";
 export const MERGED = "MERGED";
 export const SHAPES = "SHAPES";
+export const WAITING = "WAITING";
+export const PAUSED = "PAUSED";

@@ -4,6 +4,7 @@ import NextShape from '../nextShape';
 import { TETROMINOS } from '../../tetrominos';
 import {SoloContext} from '../../containers/Solo/reducer';
 import dynamic from 'next/dynamic';
+import { WAITING, PLAYING } from '../../constants';
 
 const NoSSRNextShape = dynamic(() => import('../nextShape'), {
     ssr: false
@@ -19,8 +20,9 @@ const InfoPanel = ({ns, cb}) => {
             <NoSSRNextShape shape={ns} />
             <StartButton onClick={() => cb()} >
                 {
-                    store?.playing?
-                    "pause" : "start"
+                    store?.playing === WAITING ? "start"
+                    : store?.playing === PLAYING ? "pause"
+                    : "play"
                 }
             </StartButton>
         </Wrap>

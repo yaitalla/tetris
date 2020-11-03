@@ -5,7 +5,7 @@ import { Context } from '../reducer';
 
 const App = () => {
   const {store} = useContext(Context)
-  console.log('/', store)
+  // console.log('/', store)
   return (
     <Wrapped>
       <h3>TET-mul-2020</h3>

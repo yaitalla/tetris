@@ -1,11 +1,11 @@
 import {createContext} from 'react';
-import { PLAYING, STATUS, SHAPES } from '../../constants';
+import { PLAYING, STATUS, SHAPES, WAITING } from '../../constants';
 import { tenMoreShapes } from '../../tetrominos';
 
 const SoloContext = createContext();
 
 const soloState = {
-    playing: false,
+    playing: WAITING,
     shapes: tenMoreShapes([]),
     i: 0
 }

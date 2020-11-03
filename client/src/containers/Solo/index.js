@@ -8,7 +8,7 @@ import GameField from '../GameField';
 import InfoPanel from '../../components/infoPanel';
 import { tenMoreShapes } from '../../tetrominos';
 import {soloState, soloReducer, SoloContext} from './reducer';
-import { PLAYING, STATUS, SHAPES } from '../../constants';
+import { PLAYING, STATUS, SHAPES, WAITING, PAUSED } from '../../constants';
 import {checkCollision} from '../../misc';
 
 const Survie = () => {
@@ -18,6 +18,7 @@ const Survie = () => {
     const [shapes, setShapes] = useState(store.shapes);
     const [control, position, reset, rotate] = useControl(shapes);
     const [field, setField, clearRows] = useGameField(control, reset, shapes);
+    
     const drop = () => {
         if(!checkCollision(control, field, {x: 0, y: 1})) {
             position({x: 0, y: 1, collided: false})
@@ -25,25 +26,38 @@ const Survie = () => {
             position({x: 0, y: 0, collided: true})
         }
     }
-    const move = ({keyCode}) => {
-            if (keyCode === 37) {
-                console.log("left");
-            }else if (keyCode === 39) {
-                console.log("rigth");
-            }else if (keyCode === 40) {
-                console.log("down");
-            }else if (keyCode === 38) {
-                console.log("up");
+    const movePosition = (way) => {
+        if(!checkCollision(control, field, {x: way, y: 0})) {
+            position({x: way, y: 0, collided: false})
+        }
+    }
+    const move = (e) => {
+        e.preventDefault();
+            if (e.keyCode === 37) {
+                movePosition(-1)
+            }else if (e.keyCode === 39) {
+                movePosition(1);
+            }else if (e.keyCode === 40) {
+                setDropTimeout(null);
+                drop();
+            }else if (e.keyCode === 38) {
+                rotate(field, 1)
             }
         // if (!gameOver && store.actualRoom.status === PLAYING) {
         //     if (keyCode === 37) {
     }
+    const resetDropTime = ({keyCode}) => {
+        if (keyCode === 40) {
+            setDropTimeout(1000 / (3) + 200);
+        }
+    }
     const start = () => {
-        reset(0)
-        dispatch({type: PLAYING, playing: !store.playing})
+        const newStatus = store.playing === PLAYING ? PAUSED : PLAYING;
+        if (store.playing === WAITING) { reset(0) }
+        dispatch({type: PLAYING, playing: newStatus})
     }
     useTimeout(() => {
-        if (store.playing) {
+        if (store.playing === PLAYING) {
             drop()
         }
     }, dropTimeout);
@@ -52,9 +66,9 @@ const Survie = () => {
         console.log('need shapes')
     }
     return (
-        <Wrapped role="button"
+        <Wrapped
                 onKeyDown={ e => move(e)}
-                onKeyUp={ e => (e) }
+                onKeyUp={ e => resetDropTime(e) }
         >
 
             <Link passHref href="/" >
@@ -62,7 +76,7 @@ const Survie = () => {
             </Link>
             <StyledFrame>
                 <GameField field={field}/>
-                <InfoPanel cb={start} ns={shapes[control.i].shape}/>
+                <InfoPanel cb={start} ns={shapes[control.i + 1].shape}/>
             </StyledFrame>
         
         </Wrapped>
