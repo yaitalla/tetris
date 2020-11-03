@@ -1,8 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import { TETROMINOS } from '../tetrominos';
 import { FIELD_WIDTH, checkCollision } from '../misc';
+import { SoloContext } from '../containers/Solo/reducer';
 
 export const useControl = (shapes) => {
+    const {store, dispatch} = useContext(SoloContext)
     const [control, setControl] = useState({
         pos: {x: 0, y: 0},
         tetromino: TETROMINOS[0].shape,
@@ -37,14 +39,16 @@ export const useControl = (shapes) => {
         setControl(clone);
     }
     const position = ( { x, y, collided } ) => {
+        console.log('position', x, y)
         setControl(prev => ({
             ...prev,
             pos: { x: (prev.pos.x += x), y: (prev.pos.y += y) },
             collided
         }))
     }
-    const reset = useCallback( async (shapeIndex, shapes) => {
-        const shapesToPrint = await shapes;
+    const reset = useCallback( (shapeIndex, shapes) => {
+        const shapesToPrint = shapes ? shapes : store.shapes;
+        console.log(shapesToPrint, shapeIndex)
         setControl(
             {
                 pos: { x: FIELD_WIDTH / 2 - 2, y: 0 },

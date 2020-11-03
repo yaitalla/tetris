@@ -1,12 +1,12 @@
 import {createContext} from 'react';
 import { PLAYING, STATUS, SHAPES } from '../../constants';
-import { randomShape } from '../../tetrominos';
+import { tenMoreShapes } from '../../tetrominos';
 
 const SoloContext = createContext();
 
 const soloState = {
     playing: false,
-    shapes: randomShape([]),
+    shapes: tenMoreShapes([]),
     i: 0
 }
 

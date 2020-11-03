@@ -9,14 +9,22 @@ import InfoPanel from '../../components/infoPanel';
 import { tenMoreShapes } from '../../tetrominos';
 import {soloState, soloReducer, SoloContext} from './reducer';
 import { PLAYING, STATUS, SHAPES } from '../../constants';
+import {checkCollision} from '../../misc';
 
 const Survie = () => {
     const {store, dispatch} = useContext(SoloContext)
     const [dropTimeout, setDropTimeout] = useState(1000);
     const [gameOver, setGameOver] = useState(false);
-    const [shapes, setShapes] = useState(tenMoreShapes([]));
+    const [shapes, setShapes] = useState(store.shapes);
     const [control, position, reset, rotate] = useControl(shapes);
     const [field, setField, clearRows] = useGameField(control, reset, shapes);
+    const drop = () => {
+        if(!checkCollision(control, field, {x: 0, y: 1})) {
+            position({x: 0, y: 0, collided: false})
+        } else {
+            position({x: 0, y: 0, collided: true})
+        }
+    }
     const move = ({keyCode}) => {
             if (keyCode === 37) {
                 console.log("left");
@@ -32,13 +40,17 @@ const Survie = () => {
     }
     const start = () => {
         console.log('clicked')
+        reset(0)
         dispatch({type: PLAYING, playing: !store.playing})
     }
     useTimeout(() => {
-        if (store.playing) { console.log(PLAYING) }
+        if (store.playing) {
+            drop()
+        }
     }, dropTimeout);
-    if (store.shapes.length > control.i + 3){
-        dispatch({type: SHAPES, shapes: tenMoreShapes(store.shapes)})
+    if (shapes.length < control.i + 3){
+        dispatch({type: SHAPES, shapes: tenMoreShapes(shapes)})
+        console.log('need shapes')
     }
     return (
         <Wrapped role="button"
