@@ -1,6 +1,14 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { Wrap, DisplayP, NextShapeField, NextShapeCell } from './style';
 import { TETROMINOS } from '../../tetrominos';
+
+const N = ({border}) => {
+    return (
+        <NextShapeCell border={border}
+                            colors={border === 0 ? '0, 0, 0' : TETROMINOS[border].color}
+                        />
+    )
+}
 
 const NextShape = ({ shape }) => {
     return (
@@ -10,8 +18,7 @@ const NextShape = ({ shape }) => {
                 {
                     shape.map(row =>
                         row.map((cell, x) =>
-                        <NextShapeCell border={cell} key={x}
-                            color={TETROMINOS[cell].color}
+                        <N border={cell} key={x}
                         />
                     ))
                 }
@@ -20,4 +27,4 @@ const NextShape = ({ shape }) => {
     )
 }
 
-export default NextShape;
+export default memo(NextShape);

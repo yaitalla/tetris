@@ -37,6 +37,6 @@ export const NextShapeField = styled.div `
 
 export const NextShapeCell = styled.div`
     width: 100%;
-    background: rgba(${props => props.color}, 0.8);
+    background: rgba(${props => props.colors}, 0.8);
     border: ${props => (props.border === 0 ? '0px solid' : '1px solid')};
 `;

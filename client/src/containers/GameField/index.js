@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { FieldGrid } from './style';
 import Cell from '../../components/atomicCell';
-import { MERGED } from '../../constants';
+import { MERGED, CLEAR } from '../../constants';
 
 const GameField = ({ field }) => {
     // console.log(field[0].length, field.length, field)
@@ -12,7 +12,7 @@ const GameField = ({ field }) => {
         for (let row in arr) {
             for (let cell in arr[row]) {
                 let i = 0, line = row;
-                if (arr[line][cell][0] !== 0 && arr[row][cell][1] === 'clear'
+                if (arr[line][cell][0] !== 0 && arr[row][cell][1] === CLEAR
                     && arr[line][cell][0] !== 1 && ret.indexOf(cell) === -1) {
                     while (arr[line][cell][0] !== 0
                         && arr[line][cell][0] !== 1 && line < 19) {

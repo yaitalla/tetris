@@ -20,7 +20,7 @@ const Survie = () => {
     const [field, setField, clearRows] = useGameField(control, reset, shapes);
     const drop = () => {
         if(!checkCollision(control, field, {x: 0, y: 1})) {
-            position({x: 0, y: 0, collided: false})
+            position({x: 0, y: 1, collided: false})
         } else {
             position({x: 0, y: 0, collided: true})
         }
@@ -39,7 +39,6 @@ const Survie = () => {
         //     if (keyCode === 37) {
     }
     const start = () => {
-        console.log('clicked')
         reset(0)
         dispatch({type: PLAYING, playing: !store.playing})
     }

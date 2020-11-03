@@ -39,7 +39,6 @@ export const useControl = (shapes) => {
         setControl(clone);
     }
     const position = ( { x, y, collided } ) => {
-        console.log('position', x, y)
         setControl(prev => ({
             ...prev,
             pos: { x: (prev.pos.x += x), y: (prev.pos.y += y) },
@@ -48,7 +47,6 @@ export const useControl = (shapes) => {
     }
     const reset = useCallback( (shapeIndex, shapes) => {
         const shapesToPrint = shapes ? shapes : store.shapes;
-        console.log(shapesToPrint, shapeIndex)
         setControl(
             {
                 pos: { x: FIELD_WIDTH / 2 - 2, y: 0 },
