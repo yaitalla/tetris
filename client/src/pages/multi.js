@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { Context } from '../reducer';
-import { Wrapped } from './style';
+import { Wrapped } from '../../styles/style';
 import Head from 'next/head';
 import SocketProvider from '../sockets';
 import Menu from '../containers/Menu';

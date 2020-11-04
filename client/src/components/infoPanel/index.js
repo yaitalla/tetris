@@ -1,8 +1,5 @@
-import React, {useContext} from 'react';
+import React, {memo} from 'react';
 import { Wrap, StyledDisplay, StartButton } from './style';
-import NextShape from '../nextShape';
-import { TETROMINOS } from '../../tetrominos';
-import {SoloContext} from '../../containers/Solo/reducer';
 import dynamic from 'next/dynamic';
 import { WAITING, PLAYING } from '../../constants';
 
@@ -10,18 +7,18 @@ const NoSSRNextShape = dynamic(() => import('../nextShape'), {
     ssr: false
 })
 
-const InfoPanel = ({ns, cb, rows, score}) => {
-    const {store, dispatch} = useContext(SoloContext)
+const InfoPanel = ({ns, cb, rows, score, status}) => {
+    // console.log(rows)
     return (
         <Wrap>
             <StyledDisplay>Score: {score}</StyledDisplay>
-    <StyledDisplay>rows: {rows}</StyledDisplay>
+            <StyledDisplay>rows: {0}</StyledDisplay>
             <StyledDisplay>Level: 1</StyledDisplay>
-            <NoSSRNextShape shape={ns} />
+            <NoSSRNextShape shape={ns} status={status} />
             <StartButton onClick={() => cb()} >
                 {
-                    store?.playing === WAITING ? "start"
-                    : store?.playing === PLAYING ? "pause"
+                    status === WAITING ? "start"
+                    : status === PLAYING ? "pause"
                     : "play"
                 }
             </StartButton>
@@ -29,4 +26,4 @@ const InfoPanel = ({ns, cb, rows, score}) => {
     )
 }
 
-export default InfoPanel;
+export default memo(InfoPanel);

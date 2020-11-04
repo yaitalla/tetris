@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Wrap = styled.aside`
     display: flex;
     justify-content: center;
+    height: 100%;
 `;
 
 export const StyledDisplay = styled.div `
@@ -11,10 +12,10 @@ export const StyledDisplay = styled.div `
     justify-content: center;
     margin: 20px 0 20px 0;
     padding: 20px;
-    border 4px solid #333;
+    border 2px solid #333;
     min-height: 30px;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 5px;
     color: ${props => (props.gameOver ? 'red' : '#999')};
     background: #000;
     font-family: Pixel, Aria, Helvetica, sans-serif;
@@ -22,17 +23,20 @@ export const StyledDisplay = styled.div `
 `;
 
 export const StartButton = styled.button `
-    box-sizing: border-box;
     width: 100%;
-    margin: 0 0 20px 0;
-    padding: 20px;
-    min-height: 30px;
-    border-radius: 20px;
+    padding: 8px 0 2px 0;
+    border-radius: 5px;
     border: none;
-    color: white;
-    background: #333;
+    color: black;
+    background: #666;
     font-family: Pixel, Arial, Helvetica, sans-serif;
     font-size: 1rem;
     outline: none;
     cursor: pointer;
-`
+    text-decoration: none;
+    transition: 0.5s ease;
+    &:hover{
+        background: black;
+        color: white
+    }
+`;

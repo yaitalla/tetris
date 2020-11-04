@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Wrapped, StyledA} from './style';
+import {Wrapped, StyledA} from '../../styles/style';
 import Link from 'next/link';
 import { Context } from '../reducer';
 

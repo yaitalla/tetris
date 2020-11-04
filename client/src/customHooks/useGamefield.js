@@ -7,7 +7,7 @@ export const useGameField = (control, reset, shapes) => {
     const [field, setField] = useState(createField());
     const [clearedRows, setClearedRows] = useState(0);
     const [score, setscore] = useState(0)
-
+    // console.log(clearedRows)
     useEffect(() => {
         const clearRows = newField => 
             newField.reduce((acc, row) => {

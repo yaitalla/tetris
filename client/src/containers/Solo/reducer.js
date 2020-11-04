@@ -11,7 +11,7 @@ const soloState = {
 }
 
 const soloReducer = (soloState, action) => {
-    // console.log(action.type)
+    if (action.type === SHAPES) console.log(action.type)
     switch(action.type){
         case PLAYING:
             return {
