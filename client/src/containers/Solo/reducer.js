@@ -6,22 +6,14 @@ const SoloContext = createContext();
 
 const soloState = {
     playing: WAITING,
-    shapes: CHEAT_SHAPES([]),
-    i: 0
 }
 
 const soloReducer = (soloState, action) => {
-    if (action.type === SHAPES) console.log(action.type)
     switch(action.type){
         case PLAYING:
             return {
                 ...soloState,
                 playing: action.playing
-            }
-        case SHAPES:
-            return {
-                ...soloState,
-                shapes: action.shapes
             }
     }
 }

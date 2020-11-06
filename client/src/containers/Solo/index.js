@@ -9,23 +9,30 @@ import GameField from '../GameField';
 import InfoPanel from '../../components/infoPanel';
 import { tenMoreShapes, CHEAT_SHAPES } from '../../tetrominos';
 import {SoloContext} from './reducer';
-import { PLAYING, SHAPES, WAITING, PAUSED } from '../../constants';
-import {checkCollision} from '../../misc';
+import { PLAYING, SHAPES, WAITING, PAUSED, GAME_OVER } from '../../constants';
+import {checkCollision, createField} from '../../misc';
 
 const Survie = () => {
     const {store, dispatch} = useContext(SoloContext)
     const [dropTimeout, setDropTimeout] = useState(1000);
-    const [gameOver, setGameOver] = useState(false);
-    const [shapes, setShapes] = useState(CHEAT_SHAPES([]));
+    const [shapes, setShapes] = useState(tenMoreShapes([]));
     const [control, position, reset, rotate] = useControl(shapes);
-    const [field, clearedRows] = useGameField(control, reset, shapes);
+    const [field, setField, clearedRows, setClearedRows] = useGameField(control, reset, shapes);
     const [score, rows, level, setLevel ] = useGameInfo(clearedRows);
     
 
     const drop = () => {
+        if (rows >= (level * 10)){
+            setLevel(prev => prev + 1);
+            setDropTimeout(prev => prev - 100);
+        }
         if(!checkCollision(control, field, {x: 0, y: 1})) {
             position({x: 0, y: 1, collided: false})
         } else {
+            if (control.pos.y < 1){
+                dispatch({type: PLAYING, playing: GAME_OVER});
+                setDropTimeout(null)
+            }
             position({x: 0, y: 0, collided: true})
         }
     }
@@ -56,6 +63,14 @@ const Survie = () => {
     const start = () => {
         const newStatus = store.playing === PLAYING ? PAUSED : PLAYING;
         if (store.playing === WAITING) { reset(0) }
+        if (store.playing === GAME_OVER) {
+            setField(createField())
+            setClearedRows(0)
+            setLevel(1)
+            setDropTimeout(1000)
+            reset(0, tenMoreShapes([]))
+
+        }
         dispatch({type: PLAYING, playing: newStatus})
     }
     useTimeout(() => {
@@ -64,7 +79,7 @@ const Survie = () => {
         }
     }, dropTimeout);
     if (shapes.length < control.i + 3){
-        setShapes(CHEAT_SHAPES(shapes))
+        setShapes(tenMoreShapes(shapes))
     }
     return (
         <Wrapped
@@ -78,6 +93,7 @@ const Survie = () => {
                 <InfoPanel rows={rows} cb={start}
                     ns={shapes[control.i + 1].shape}
                     score={score} status={store.playing}
+                    level={level} dp={dropTimeout}
                 />
                  <Link passHref href="/" >
                     <StyledA>quit</StyledA>

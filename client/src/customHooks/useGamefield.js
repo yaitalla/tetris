@@ -45,5 +45,5 @@ export const useGameField = (control, reset, shapes) => {
         setField(prev => updateField(prev));
     }, [control, reset]);
 
-    return [field, clearedRows];
+    return [field, setField, clearedRows, setClearedRows];
 };

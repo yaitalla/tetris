@@ -3,7 +3,7 @@ import { TETROMINOS } from '../tetrominos';
 import { FIELD_WIDTH, checkCollision } from '../misc';
 import { SoloContext } from '../containers/Solo/reducer';
 
-export const useControl = (shapes) => {
+export const useControl = (shapesNeeded) => {
     const {store, dispatch} = useContext(SoloContext)
     const [control, setControl] = useState({
         pos: {x: 0, y: 0},
@@ -46,7 +46,7 @@ export const useControl = (shapes) => {
         }))
     }
     const reset = useCallback( (shapeIndex, shapes) => {
-        const shapesToPrint = shapes ? shapes : store.shapes;
+        const shapesToPrint = shapes ? shapes : shapesNeeded;
         setControl(
             {
                 pos: { x: FIELD_WIDTH / 2 - 2, y: 0 },
