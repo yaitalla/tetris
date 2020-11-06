@@ -1,12 +1,12 @@
 import {createContext} from 'react';
 import { PLAYING, STATUS, SHAPES, WAITING } from '../../constants';
-import { tenMoreShapes } from '../../tetrominos';
+import { tenMoreShapes, CHEAT_SHAPES } from '../../tetrominos';
 
 const SoloContext = createContext();
 
 const soloState = {
     playing: WAITING,
-    shapes: tenMoreShapes([]),
+    shapes: CHEAT_SHAPES([]),
     i: 0
 }
 

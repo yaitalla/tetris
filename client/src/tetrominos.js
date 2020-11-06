@@ -64,8 +64,27 @@ export const TETROMINOS = {
         ],
         color: '227, 78, 78',
     },
+    C: {
+        shape: [
+            ['C', 'C', 'C', 'C'],
+            ['C', 'C', 'C', 'C'],
+            ['C', 'C', 'C', 'C'],
+            ['C', 'C', 'C', 'C']
+        ],
+        color: '209, 66, 0',
+    }
 
 };
+
+const cheat = {
+    shape: [
+        ['C', 'C', 'C', 'C'],
+        ['C', 'C', 'C', 'C'],
+        ['C', 'C', 'C', 'C'],
+        ['C', 'C', 'C', 'C']
+    ],
+    color: '209, 66, 0',
+}
 
 export const randomShape = () => {
     const tetrominos = 'IJLOSTZ';
@@ -74,6 +93,12 @@ export const randomShape = () => {
     return TETROMINOS[randTetromino];
 }
 
+export const CHEAT_SHAPES = (shapes) => {
+    for (let i=0; i<10; i++) {
+        shapes.push(cheat)
+    }
+    return shapes;
+}
 
 export const tenMoreShapes = (shapes) => {
     for (let i=0; i<10; i++) {

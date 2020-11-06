@@ -7,12 +7,12 @@ const NoSSRNextShape = dynamic(() => import('../nextShape'), {
     ssr: false
 })
 
-const InfoPanel = ({ns, cb, rows, score, status}) => {
+const InfoPanel = ({rows, cb, ns, score, status}) => {
     // console.log(rows)
     return (
         <Wrap>
             <StyledDisplay>Score: {score}</StyledDisplay>
-            <StyledDisplay>rows: {0}</StyledDisplay>
+            <StyledDisplay>rows: {rows}</StyledDisplay>
             <StyledDisplay>Level: 1</StyledDisplay>
             <NoSSRNextShape shape={ns} status={status} />
             <StartButton onClick={() => cb()} >

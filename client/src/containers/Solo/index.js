@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { StyledA, Wrapped, StyledFrame } from './style';
 import GameField from '../GameField';
 import InfoPanel from '../../components/infoPanel';
-import { tenMoreShapes } from '../../tetrominos';
+import { tenMoreShapes, CHEAT_SHAPES } from '../../tetrominos';
 import {SoloContext} from './reducer';
 import { PLAYING, SHAPES, WAITING, PAUSED } from '../../constants';
 import {checkCollision} from '../../misc';
@@ -16,9 +16,10 @@ const Survie = () => {
     const {store, dispatch} = useContext(SoloContext)
     const [dropTimeout, setDropTimeout] = useState(1000);
     const [gameOver, setGameOver] = useState(false);
-    const [shapes, setShapes] = useState(tenMoreShapes([]));
+    const [shapes, setShapes] = useState(CHEAT_SHAPES([]));
     const [control, position, reset, rotate] = useControl(shapes);
-    const [field, clearedRows, score] = useGameField(control, reset, shapes);
+    const [field, clearedRows] = useGameField(control, reset, shapes);
+    const [score, rows, level, setLevel ] = useGameInfo(clearedRows);
     
 
     const drop = () => {
@@ -41,7 +42,7 @@ const Survie = () => {
             }else if (e.keyCode === 39 && ok) {
                 movePosition(1);
             }else if (e.keyCode === 40 && ok) {
-                setDropTimeout(null);
+                // setDropTimeout(null);
                 drop();
             }else if (e.keyCode === 38 && ok) {
                 rotate(field, 1)
@@ -63,21 +64,20 @@ const Survie = () => {
         }
     }, dropTimeout);
     if (shapes.length < control.i + 3){
-        setShapes(tenMoreShapes(shapes))
+        setShapes(CHEAT_SHAPES(shapes))
     }
-    console.log(score)
     return (
         <Wrapped
                 onKeyDown={ e => move(e)}
-                onKeyUp={ e => resetDropTime(e) }
+                // onKeyUp={ e => resetDropTime(e) }
         >
 
             
             <StyledFrame>
                 <GameField field={field}/>
-                <InfoPanel rows={clearedRows} cb={start}
+                <InfoPanel rows={rows} cb={start}
                     ns={shapes[control.i + 1].shape}
-                    score={0} status={store.playing}
+                    score={score} status={store.playing}
                 />
                  <Link passHref href="/" >
                     <StyledA>quit</StyledA>

@@ -6,18 +6,15 @@ export const useGameInfo = clearedRows => {
     const [level, setLevel] = useState(0);
     const [bonus, setBonus] = useState(false);
 
-    const linePoints = [100, 200, 300, 400];
+    const linePoints = [100, 200, 300, 800];
 
     const computeScore = useCallback(() => {
         if (clearedRows > 0) {
             const tetris = clearedRows === 4;
-            setScore(prev =>
-                prev
-                + linePoints[clearedRows - 1]
-                + tetris ? bonus ? 800 : 400 : 0
-            )
-            setRows(prev => prev + clearedRows)
-            setBonus(tetris)
+            const bonusReward = bonus ? 400 : 0;
+            setScore(score + linePoints[clearedRows - 1] + bonusReward);
+            setRows(prev => prev + clearedRows);
+            setBonus(tetris);
         }
     }, [level, linePoints, clearedRows])
 
@@ -25,5 +22,5 @@ export const useGameInfo = clearedRows => {
         computeScore();
     }, [computeScore, clearedRows, score])
 
-    return [score, setScore, rows, setRows, level, setLevel];
+    return [score, rows, level, setLevel];
 }

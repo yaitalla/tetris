@@ -6,14 +6,13 @@ import { CLEAR, MERGED } from '../constants';
 export const useGameField = (control, reset, shapes) => {
     const [field, setField] = useState(createField());
     const [clearedRows, setClearedRows] = useState(0);
-    const [score, setscore] = useState(0)
     // console.log(clearedRows)
     useEffect(() => {
+        setClearedRows(0);
         const clearRows = newField => 
             newField.reduce((acc, row) => {
                 if (row.findIndex(cell => cell[0] === 0) === -1){
                     setClearedRows(prev => prev +1)
-                    setscore(prev => prev + 100)
                     acc.unshift(new Array(newField[0].length).fill([0, CLEAR]))
                 } else {
                     acc.push(row)
@@ -44,8 +43,7 @@ export const useGameField = (control, reset, shapes) => {
         }
 
         setField(prev => updateField(prev));
-
     }, [control, reset]);
 
-    return [field, setField, clearedRows, score];
+    return [field, clearedRows];
 };
