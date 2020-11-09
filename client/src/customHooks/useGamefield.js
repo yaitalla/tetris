@@ -27,10 +27,14 @@ export const useGameField = (control, reset, shapes) => {
             control.tetromino.forEach((row, y) => {
                 row.forEach((value, x) => {
                     if (value !== 0) {
-                        newField[y + control.pos.y][x + control.pos.x] = [
-                            value,
-                            control.collided ? MERGED : CLEAR
-                        ]
+                        if (!newField[y + control.pos.y]){
+                            // console.log("ici ça foire",y, control.pos.y)
+                        } else {
+                            newField[y + control.pos.y][x + control.pos.x] = [
+                                value,
+                                control.collided ? MERGED : CLEAR
+                            ]    
+                        }
                     }
                 })
             });

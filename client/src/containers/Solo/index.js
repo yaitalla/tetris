@@ -22,6 +22,10 @@ const Survie = () => {
     
 
     const drop = () => {
+        if (control.collided) {
+            // console.log('/!\ CRASH DODGEG /!\ ')
+            return;
+        }
         if (rows >= (level * 10)){
             setLevel(prev => prev + 1);
             setDropTimeout(prev => prev - 100);
@@ -57,7 +61,7 @@ const Survie = () => {
     }
     const resetDropTime = ({keyCode}) => {
         if (keyCode === 40) {
-            setDropTimeout(1000 / (3) + 200);
+            setDropTimeout(dropTimeout);
         }
     }
     const start = () => {
