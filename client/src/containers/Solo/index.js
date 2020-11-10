@@ -90,8 +90,6 @@ const Survie = () => {
                 onKeyDown={ e => move(e)}
                 // onKeyUp={ e => resetDropTime(e) }
         >
-
-            
             <StyledFrame>
                 <GameField field={field}/>
                 <InfoPanel rows={rows} cb={start}

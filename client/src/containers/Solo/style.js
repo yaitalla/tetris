@@ -37,7 +37,7 @@ export const Wrapped = styled.section`
     width: 100vw;
     display: flex;
     position: relative;
-    background: lightgrey;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(121,10,9,1) 35%, rgba(0,0,0,1) 100%);
     justify-content: center;
     align-items: center;
     flex-direction: row;

@@ -1,4 +1,4 @@
-import { CLEAR } from "./constants";
+import { CLEAR, MERGED } from "./constants";
 
 export const FIELD_WIDTH = 12;
 export const FIELD_HEIGHT = 20;
