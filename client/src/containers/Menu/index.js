@@ -2,8 +2,9 @@ import React, {useContext, memo} from 'react';
 import Link from 'next/link';
 import UserList from '../../components/userList';
 import RoomList from '../../components/roomList';
-import { TabWrap, StyledA } from './style';
+import { TabWrap } from './style';
 import { Context } from '../../reducer';
+import DefaultLinkBtn from '../../components/defaultButton';
 
 const Menu = () => {
     const {store} = useContext(Context)
@@ -24,10 +25,7 @@ const Menu = () => {
                 <p>{"you are: Player "+ checker() }</p>
                 : null
             }
-
-            <Link passHref href="/" >
-                <StyledA>retour</StyledA>
-            </Link>
+            <DefaultLinkBtn to="/" text="retour" />
         </>
     )
 }

@@ -3,14 +3,14 @@ import { useControl } from '../../customHooks/useControl';
 import { useGameField } from '../../customHooks/useGamefield';
 import { useTimeout } from '../../customHooks/useTimeout';
 import { useGameInfo } from '../../customHooks/useGameInfo';
-import Link from 'next/link';
-import { StyledA, Wrapped, StyledFrame } from './style';
+import { Wrapped, StyledFrame } from './style';
 import GameField from '../GameField';
 import InfoPanel from '../../components/infoPanel';
 import { tenMoreShapes, CHEAT_SHAPES } from '../../tetrominos';
 import {SoloContext} from './reducer';
 import { PLAYING, SHAPES, WAITING, PAUSED, GAME_OVER } from '../../constants';
 import {checkCollision, createField} from '../../misc';
+import DefaultLinkBtn from '../../components/defaultButton';
 
 const Survie = () => {
     const {store, dispatch} = useContext(SoloContext)
@@ -97,9 +97,7 @@ const Survie = () => {
                     score={score} status={store.playing}
                     level={level} dp={dropTimeout}
                 />
-                 <Link passHref href="/" >
-                    <StyledA>quit</StyledA>
-                </Link>
+                <DefaultLinkBtn to="/" text="quit" />
             </StyledFrame>
 
         </Wrapped>

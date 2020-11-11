@@ -6,6 +6,7 @@ import SocketProvider from '../sockets';
 import Menu from '../containers/Menu';
 import Room from '../containers/Room';
 import { LOBBY, INROOM } from '../constants';
+import DiscoPage from '../components/disconnected';
 
 const Game = () => {
     const {store} = useContext(Context)
@@ -19,7 +20,7 @@ const Game = () => {
       <SocketProvider>
         {
           store.status === LOBBY ? <Menu /> : 
-          store.status === INROOM ? <Room /> : null
+          store.status === INROOM ? <Room /> : <DiscoPage />
         }
         
       </SocketProvider>

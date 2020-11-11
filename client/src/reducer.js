@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { UPDATE_DATA, UPDATE_ROOMS, LOBBY, STATUS,
-    USERS_UPDATE, YOUR_ID, INROOM
+    USERS_UPDATE, YOUR_ID, INROOM, DISCONNECT
 } from './constants';
 
 const Context = createContext();
@@ -9,7 +9,7 @@ const initialState = {
     users: [],
     rooms: [],
     my_id: "",
-    status: LOBBY
+    status: DISCONNECT
 }
 
 const reducer = ( state, action ) => {

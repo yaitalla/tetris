@@ -13,3 +13,4 @@ export const MERGED = "MERGED";
 export const SHAPES = "SHAPES";
 export const WAITING = "WAITING";
 export const PAUSED = "PAUSED";
+export const DISCONNECT = "DISCONNECT";

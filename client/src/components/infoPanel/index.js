@@ -11,12 +11,12 @@ const InfoPanel = ({rows, cb, ns, score, status, level, dp}) => {
     // console.log(rows)
     return (
         <Wrap>
+            <StyledDisplay>Score: {score}</StyledDisplay>
             {
                 status === GAME_OVER ?
                     <StyledDisplay>game over</StyledDisplay>
                 :
                 <>
-                    <StyledDisplay>Score: {score}</StyledDisplay>
                     <StyledDisplay>rows: {rows}</StyledDisplay>
                     <StyledDisplay>Level: {level} </StyledDisplay>
                     <StyledDisplay>

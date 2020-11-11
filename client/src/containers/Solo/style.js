@@ -1,21 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledA = styled.a`
-    margin-left: 200px;
-    padding: 10px;
-    min-height: 20px;
-    border-radius: 4px;
-    background: grey;
-    color: black;
-    font-family: Pixel, Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
-    align-self: flex-end;
-    cursor: pointer;
-    &:hover{
-        background: red;
-        color: white;
-    }
-`;
 export const StartButton = styled.button `
     box-sizing: border-box;
     width: 100%;
@@ -36,8 +20,8 @@ export const Wrapped = styled.section`
     height: 100vh;
     width: 100vw;
     display: flex;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(162,206,244,1) 50%, rgba(0,0,0,1) 100%);
     position: relative;
-    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(121,10,9,1) 35%, rgba(0,0,0,1) 100%);
     justify-content: center;
     align-items: center;
     flex-direction: row;

@@ -27,38 +27,17 @@ export const Wrapped = styled.section`
     align-items: center;
     flex-direction: column;
 `;
-export const StyledA = styled.a`
-    width: 150px;
-    padding: 8px 0 2px 0;
-    margin: 8px 0 2px 0;
-    border-radius: 5px;
-    border: none;
-    text-align: center;
-    color: black;
-    background: #666;
-    font-family: Pixel, Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: 0.5s ease;
-    &:hover{
-        background: black;
-        color: white
-    }
-`;
-
 
 export const BackgroundWrap = styled.div`
   width: 100%;
-    position: absolute;
-    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(121,10,9,1) 35%, rgba(0,0,0,1) 100%);
+  position: absolute;
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(162,206,244,1) 50%, rgba(0,0,0,1) 100%);
   background-size: cover;
   height: 100%;
   perspective: 360px;
   perspective-origin: 50% 50%;  
   z-index: -10;
-  `;
+`;
 export const Top = styled.div`
   width: 100%;
   height: 100%;
