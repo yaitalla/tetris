@@ -13,7 +13,7 @@ const initialState = {
 }
 
 const reducer = ( state, action ) => {
-    // console.log(action)
+    console.log(action)
     switch(action.type) {
         case USERS_UPDATE:
             return {
@@ -23,7 +23,8 @@ const reducer = ( state, action ) => {
         case YOUR_ID:
             return {
                 ...state,
-                my_id: action.yourId
+                my_id: action.yourId,
+                status: LOBBY
             }
         case UPDATE_ROOMS:
             return {

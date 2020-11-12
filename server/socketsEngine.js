@@ -10,8 +10,8 @@ const startEngine = async io => {
             users.push(socket.id)
         }
         console.log('user connected', socket.id, users)
-        io.emit(CONSTANTS.USERS_UPDATE, users)
         socket.emit(CONSTANTS.YOUR_ID, socket.id)
+        io.emit(CONSTANTS.USERS_UPDATE, users)
 
         socket.on(CONSTANTS.UPDATE_ROOMS, (room) => {
             rooms.push(room);
