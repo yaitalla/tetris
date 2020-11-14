@@ -4,6 +4,7 @@ export const Wrap = styled.aside`
     display: flex;
     justify-content: center;
     height: 100%;
+    
 `;
 
 export const StyledDisplay = styled.div `

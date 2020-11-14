@@ -4,8 +4,8 @@ export const Wrap = styled.section`
     display: flex;
     width: 30%;
     height: 60%;
+    margin: 30px;
     flex-direction: column;
-    border: 2px solid black;
     border-radius: 5px;
     background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
     -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
