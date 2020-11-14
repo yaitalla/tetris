@@ -6,11 +6,11 @@
 ``` bash
 $ cd server
 $ npm install
-$ npm run dev
+$ npm start
 ```
 #### Go to client folder, install npm packages, and launch
 ``` bash
 $ cd client
 $ npm install
-$ npm start
+$ npm run dev
 ```
