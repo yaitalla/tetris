@@ -21,11 +21,8 @@ const Menu = () => {
                 <UserList />
                 <RoomList />
             </TabWrap>
-            { store.my_id ?
-                <p>{"you are: Player "+ checker() }</p>
-                : null
-            }
-            <DefaultLinkBtn to="/" text="retour" />
+            <p>{"you are: Player "+ checker() }</p>
+            <DefaultLinkBtn to="/" text="return" />
         </Wrapped>
     )
 }

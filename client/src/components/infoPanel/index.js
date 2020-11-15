@@ -21,7 +21,7 @@ const InfoPanel = ({rows, cb, ns, score, status, level, dp}) => {
                     <StyledDisplay>Level: {level} </StyledDisplay>
                     <StyledDisplay>
                         drop:  {
-                                    dp < 1000 ? "0."+dp+" sec"
+                                    dp < 1000 ? "0."+dp/100+" sec"
                                     : "1 sec"
                                 } 
                     </StyledDisplay>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { Context } from '../../reducer';
-import { Wrap, Line } from './style';
+import { Wrap, Line, Title } from './style';
 
 
 
@@ -15,6 +15,7 @@ const UserList = () => {
     }
     return (
         <Wrap>
+            <Title>connected players</Title>
             {
                 store.users ?
                 store.users.map((usr, i) => <Line key={i} >{"Player"+(i+1)}</Line>)

@@ -12,6 +12,11 @@ body {
   font-family: 'Pixel';
   src:  url('../src/fonts/Pixel-LCD-7.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'Orbitron';
+  src:  url('../src/fonts/Orbitron-VariableFont_wght.ttf') format('ttf');
+}
 a {
   color: inherit;
   text-decoration: none;

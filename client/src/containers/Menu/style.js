@@ -6,7 +6,6 @@ export const TabWrap = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    border: 1px solid yellow;
     justify-content: center;
     align-items: center;
 `;

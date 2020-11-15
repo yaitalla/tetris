@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { Context } from '../../reducer';
-import { Wrap, Line, StyledA, NavLink } from './style';
+import { Wrap, Line, StyledA, NavLink, Title } from './style';
 import { updateRooms } from '../../sockets/events';
 import Link from 'next/link';
 import { STATUS, INROOM } from '../../constants';
@@ -37,6 +37,7 @@ const RoomList = () => {
     }
     return (
         <Wrap>
+            <Title>Avaible Games</Title>
             {
                 store.rooms ?
                 store.rooms.map((room, i) =>
@@ -50,10 +51,10 @@ const RoomList = () => {
             
             <form onSubmit={submitForm}>
                 <input
-                    placeholder="enter a room name"
+                    placeholder="enter name"
                     ref={node => (input = node)}
                 />
-                <button type="submit" >create room</button>
+                <button type="submit" >New Game</button>
             </form>
 
         </Wrap>
