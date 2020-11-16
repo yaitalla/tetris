@@ -15,7 +15,7 @@ const UserList = () => {
     }
     return (
         <Wrap>
-            <Title>connected players</Title>
+            <Title>Connected Players</Title>
             {
                 store.users ?
                 store.users.map((usr, i) => <Line key={i} >{"Player"+(i+1)}</Line>)
