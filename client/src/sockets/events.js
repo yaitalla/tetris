@@ -19,8 +19,9 @@ const SocketEvents = ( setValue, dispatch ) => {
         dispatch({type: UPDATE_DATA, rooms: data.rooms, users: data.users})
     })
 
-    socket.on(YOUR_ID, id => {
-        dispatch({type: YOUR_ID, yourId: id})
+    socket.on(YOUR_ID, data => {
+
+        dispatch({type: YOUR_ID, yourId: data.id, rooms: data.rooms})
     })
 }
 

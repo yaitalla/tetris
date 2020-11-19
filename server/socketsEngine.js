@@ -10,7 +10,7 @@ const startEngine = async io => {
             users.push(socket.id)
         }
         console.log('user connected', socket.id, users)
-        socket.emit(CONSTANTS.YOUR_ID, socket.id)
+        socket.emit(CONSTANTS.YOUR_ID, {id: socket.id, rooms})
         io.emit(CONSTANTS.USERS_UPDATE, users)
 
         socket.on(CONSTANTS.UPDATE_ROOMS, (room) => {
@@ -20,7 +20,8 @@ const startEngine = async io => {
 
         socket.on('disconnect', () => {
           users.splice(users.indexOf(socket.id), 1)
-          console.log(socket.id, 'disconnected', users)
+          console.log(socket.id, 'disconnected', users, rooms)
+
           io.emit(CONSTANTS.USERS_UPDATE, users)
         })
     })

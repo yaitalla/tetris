@@ -24,6 +24,7 @@ const reducer = ( state, action ) => {
             return {
                 ...state,
                 my_id: action.yourId,
+                rooms: action.rooms,
                 status: LOBBY
             }
         case UPDATE_ROOMS:
